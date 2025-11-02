@@ -1,8 +1,10 @@
 import { useUser } from "../context/UserContext";
 import SEO from "../components/SEO.jsx";
+import { useNavigate } from "react-router-dom";
 
 function Landing() {
   const { user } = useUser();
+  const navigate = useNavigate();
 
   const schema = {
     "@context": "https://schema.org",
@@ -38,8 +40,14 @@ function Landing() {
       <header className="mx-auto flex max-w-6xl flex-col gap-12 px-6 py-24 lg:flex-row lg:items-center">
         <div className="flex-1 space-y-6">
           <span className="inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-900 px-4 py-1 text-sm font-medium tracking-wide text-slate-200">
-            Professional QR codes in minutes <h2>Welcome, {user.email}</h2>
+            Professional QR codes in minutes <h2>Welcome,</h2>
           </span>
+          <button
+            className="p-2 px-4 bg-amber-400 rounded-2xl hover:bg-amber-600"
+            onClick={() => navigate("/dashboard")}
+          >
+            Dashboard
+          </button>
           <h1 className="text-4xl font-semibold leading-tight text-white sm:text-5xl">
             Create custom QR codes and measure their impact in real time
           </h1>
