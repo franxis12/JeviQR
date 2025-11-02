@@ -4,17 +4,16 @@ import useIsMobile from "../hooks/useIsMobile";
 function Sidebar({ user }) {
   const isMobile = useIsMobile();
   const isTable = useIsMobile(1024);
-  console.log(isMobile + " Sidebar");
   const [expanded, setExpanded] = useState(isMobile);
   useEffect(() => {
-    if (isTable) {
+    if (isTable || isMobile) {
       setExpanded(false);
     }
-  }, [isTable]);
+  }, [isTable, isMobile]);
 
   return (
     <div
-      className={`bg-amber-700/50 h-screen p-2  absolute ${
+      className={`bg-[var(--interfaceColor)] h-screen p-2  absolute ${
         isMobile && expanded
           ? "w-50 -translate-x-1.5"
           : !isMobile
