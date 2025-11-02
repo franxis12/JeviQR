@@ -4,7 +4,6 @@ import useIsMobile from "../hooks/useIsMobile";
 function Sidebar({ user }) {
   const isMobile = useIsMobile();
   const isTable = useIsMobile(1024);
-  console.log(isMobile + " Sidebar");
   const [expanded, setExpanded] = useState(isMobile);
   useEffect(() => {
     if (isTable || isMobile) {
