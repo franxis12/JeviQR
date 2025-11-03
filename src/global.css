@@ -5,13 +5,21 @@
     --bg-color: #1d1e21;
     --text-color: #f8fafc;
     --interfaceColor: #333;
+    --buttonSelected: #ff9500;
+    --buttonHover: #ffb650;
+    --textPrimary: #ff9500;
+
+    --inputColor: #1a1a1a;
+    --borderColor: #ffffff55;
+
+    
 
   }
 
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg-color: #ddf1e8;
+    --bg-color: #c0c0c0;
     --text-color: #0f172a;
     --interfaceColor: #fff;
 

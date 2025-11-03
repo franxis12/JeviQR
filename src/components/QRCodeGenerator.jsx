@@ -7,9 +7,9 @@ function QRCodeGenerator() {
   return (
     <div className="flex flex-col items-center gap-4 p-6">
       <QRCodeCanvas
-        value={qrText}
+        value={qrText.name}
         imageSettings={{
-          src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/1024px-Microsoft_logo.svg.png", // Replace with your logo URL
+          src: style.logo, //"https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/1024px-Microsoft_logo.svg.png", // Replace with your logo URL
           x: undefined, // Center the image horizontally
           y: undefined, // Center the image vertically
           height: style.qrLogoHeight,
