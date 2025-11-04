@@ -21,8 +21,8 @@ function Dashboard() {
       <QRCodeProvider>
         <div className="relative min-h-screen w-full overflow-hidden">
           <myImages.bg
-            className="pointer-events-none text-black scale-200 absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2"
-            style={{ width: 1600, height: 900 }}
+            className="pointer-events-none text-(--text-color)/35  absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2"
+            style={{ width: 2000, height: 1800 }}
           />
           <div className={`flex  `}>
             <Sidebar user={user}></Sidebar>

@@ -1,6 +1,6 @@
 function Header({ user }) {
   return (
-    <div className=" s w-full sticky to-0% bg-amber-900">
+    <div className=" s w-full sticky to-0% ">
       <div className="flex items-center justify-end  gap-2 px-5 py-1">
         <h1>{user?.email}</h1>
         <img

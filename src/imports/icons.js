@@ -7,6 +7,7 @@ import fontSolid from '../assets/icons/font-solid-full.svg?react'
 import fontUnderline from '../assets/icons/font-solid-full-underline.svg?react'
 import fontOverline from '../assets/icons/font-solid-full-overline.svg?react'
 import fontLineThrough from '../assets/icons/font-solid-full-line-through.svg?react'
+import qrIcon from '../assets/icons/qrcode-solid-full.svg?react'
 
 
 
@@ -19,6 +20,7 @@ const Icon = {
     underline: fontUnderline,
     overline: fontOverline,
     lineThrough: fontLineThrough,
+    qr:qrIcon,
 }
 
 export {Icon, LogoPng}
