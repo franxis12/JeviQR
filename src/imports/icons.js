@@ -1,9 +1,14 @@
+import LogoPng from '../assets/logo/JeviQR-logo.png'
+
+
 import eyeSlashSolid from '../assets/icons/eye-slash-solid-full.svg?react'
 import eyeSolid from '../assets/icons/eye-solid-full.svg?react'
 import fontSolid from '../assets/icons/font-solid-full.svg?react'
 import fontUnderline from '../assets/icons/font-solid-full-underline.svg?react'
 import fontOverline from '../assets/icons/font-solid-full-overline.svg?react'
 import fontLineThrough from '../assets/icons/font-solid-full-line-through.svg?react'
+
+
 
 
 
@@ -16,4 +21,4 @@ const Icon = {
     lineThrough: fontLineThrough,
 }
 
-export {Icon}
+export {Icon, LogoPng}

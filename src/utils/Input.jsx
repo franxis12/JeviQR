@@ -14,6 +14,7 @@ function Input({
   min,
   width,
   selected,
+  step,
 }) {
   return (
     <div className={`${width ? width : "w-full"}`}>
@@ -24,6 +25,7 @@ function Input({
       )}
       <div className="flex gap-1">
         <input
+          step={step}
           type={type}
           value={value}
           placeholder={placeholder}

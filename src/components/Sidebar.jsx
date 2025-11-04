@@ -13,7 +13,7 @@ function Sidebar({ user }) {
 
   return (
     <div
-      className={`bg-[var(--interfaceColor)] h-screen p-2  absolute ${
+      className={`bg-(--interfaceColor)/20 z-10 h-screen p-2  fixed ${
         isMobile && expanded
           ? "w-50 -translate-x-1.5"
           : !isMobile

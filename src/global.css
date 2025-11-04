@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 
+
   :root {
     --bg-color: #1d1e21;
     --text-color: #f8fafc;
     --interfaceColor: #333;
     --buttonSelected: #ff9500;
-    --buttonHover: #ffb650;
+    --buttonHover: #fdbc61;
     --textPrimary: #ff9500;
 
     --inputColor: #1a1a1a;
@@ -22,14 +23,23 @@
     --bg-color: #c0c0c0;
     --text-color: #0f172a;
     --interfaceColor: #fff;
+     --buttonSelected: #ff9500;
+    --buttonHover: #ffb650;
+        --textPrimary: #ff9500;
+
+
+    --inputColor: #cbcbcb;
+    --borderColor: #1d1d1d55;
 
   }
 }
 
 body {
-  background-color: var(--bg-color);
+    /*background-color: var(--bg-color);*/
+
   color: var(--text-color);
 }
+
 
 @media print {
   body {
@@ -53,3 +63,18 @@ body {
     transform: none !important;
   }
 }
+
+
+
+    @layer utilities {
+      /* Hide scrollbar for Chrome, Safari, and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Hide scrollbar for IE, Edge, and Firefox */
+      .no-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+      }
+    }
