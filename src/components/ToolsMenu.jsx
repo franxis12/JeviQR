@@ -7,7 +7,7 @@ import { Icon } from "../imports/icons.js";
 function ToolsMenu() {
   const { qrText, setQrText, customName, setCustomName, style, setStyle } =
     useQRCode();
-  const [aspect, setAspect] = useState("square");
+  const [aspect, setAspect] = useState("");
 
   const handlePrint = () => {
     window.print();
@@ -51,7 +51,7 @@ function ToolsMenu() {
   };
 
   return (
-    <div className="overflow-x-hidden overflow-y-scroll no-scrollbar  rounded-2xl w-100 h-4/5 border transition-colors duration-500 border-amber-50/20 bg-(--interfaceColor)/75 hover:bg-(--interfaceColor)    fixed p-3 right-3  top-20 ">
+    <div className="overflow-x-hidden overflow-y-scroll no-scrollbar  rounded-2xl w-80 h-6/8 border transition-colors duration-500 border-amber-50/20 bg-(--interfaceColor)/75 hover:bg-(--interfaceColor)    fixed p-3 right-3  top-20 ">
       {" "}
       {/*overflow-x-hidden overflow-y-scroll*/}
       {/*Custom Text*/}
@@ -122,24 +122,17 @@ function ToolsMenu() {
               selected={customName.textDecoration.includes("underline")}
               icon={Icon.underline}
               onClick={() => toggleDecoration("underline")}
-            >
-              {" "}
-              Underline
-            </Button>
+            ></Button>
             <Button
               selected={customName.textDecoration.includes("overline")}
               icon={Icon.overline}
               onClick={() => toggleDecoration("overline")}
-            >
-              Overline
-            </Button>
+            ></Button>
             <Button
               selected={customName.textDecoration.includes("line-through")}
               icon={Icon.lineThrough}
               onClick={() => toggleDecoration("line-through")}
-            >
-              L-through
-            </Button>
+            ></Button>
           </div>
         </div>
       </div>
@@ -162,7 +155,6 @@ function ToolsMenu() {
         />
 
         <div className="w-full ">
-          <h1 className="px-2  font-medium">QR Style</h1>
           <div className="flex items-center justify-between gap-1 w-full mb-1 ">
             <Input
               width={"w-full"}
@@ -209,33 +201,26 @@ function ToolsMenu() {
               selected={qrText.textDecoration.includes("underline")}
               icon={Icon.underline}
               onClick={() => toggleDecorationQRLink("underline")}
-            >
-              {" "}
-              Underline
-            </Button>
+            ></Button>
             <Button
               selected={qrText.textDecoration.includes("overline")}
               icon={Icon.overline}
               onClick={() => toggleDecorationQRLink("overline")}
-            >
-              Overline
-            </Button>
+            ></Button>
             <Button
               selected={qrText.textDecoration.includes("line-through")}
               icon={Icon.lineThrough}
               onClick={() => toggleDecorationQRLink("line-through")}
-            >
-              L-through
-            </Button>
+            ></Button>
           </div>
           <div
-            className={`flex-col items-center justify-between gap-1 mb-1 hover:bg-slate-800 bg-slate-900/85 border transition-colors ease-in-out duration-300 border-amber-50/10 rounded-xl p-2 `}
+            className={`flex-col items-center justify-between gap-1 my-1 hover:bg-slate-800 bg-slate-900/85 border transition-colors ease-in-out duration-300 border-amber-50/10 rounded-xl p-2 `}
           >
             <h1 className="mx-1 text-xs mb-2 text-white">QR code level</h1>
-            <div className="flex gap-5 items-end">
-              <div className="flex gap-1 items-end w-3/10 min-w-25">
+            <div className="flex flex-col gap-5 items-end">
+              <div className="flex  gap-1 items-end w-full min-w-25">
                 <Button
-                  height={"h-14"}
+                  height={"h-30 items-end font-bold"}
                   selected={style.qrCodeLevel === "H"}
                   onClick={() =>
                     setStyle((prev) => ({
@@ -243,9 +228,11 @@ function ToolsMenu() {
                       qrCodeLevel: "H",
                     }))
                   }
-                ></Button>
+                >
+                  30%
+                </Button>
                 <Button
-                  height={"h-12"}
+                  height={"h-25 items-end font-bold"}
                   selected={style.qrCodeLevel === "Q"}
                   onClick={() =>
                     setStyle((prev) => ({
@@ -253,9 +240,11 @@ function ToolsMenu() {
                       qrCodeLevel: "Q",
                     }))
                   }
-                ></Button>
+                >
+                  25%
+                </Button>
                 <Button
-                  height={"h-10"}
+                  height={"h-15 items-end font-bold"}
                   selected={style.qrCodeLevel === "M"}
                   onClick={() =>
                     setStyle((prev) => ({
@@ -263,9 +252,11 @@ function ToolsMenu() {
                       qrCodeLevel: "M",
                     }))
                   }
-                ></Button>
+                >
+                  15%
+                </Button>
                 <Button
-                  height={"h-8 "}
+                  height={"h-7 items-end font-bold"}
                   selected={style.qrCodeLevel === "L"}
                   onClick={() =>
                     setStyle((prev) => ({
@@ -273,9 +264,11 @@ function ToolsMenu() {
                       qrCodeLevel: "L",
                     }))
                   }
-                ></Button>
+                >
+                  7%
+                </Button>
               </div>
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1  w-full">
                 <h1 className="text-white">
                   {style.qrCodeLevel === "L"
                     ? "Low"
@@ -316,7 +309,7 @@ function ToolsMenu() {
       </div>
       <div className="w-full border rounded-2xl p-2 border-(--borderColor) my-2 ">
         <div className="w-full">
-          <h1 className="px-2  font-medium">QR Code Style</h1>
+          <h1 className="px-2  font-medium">Style</h1>
           <div className="flex items-center justify-between gap-1 w-full mb-1 ">
             <Input
               value={style.border}
@@ -395,7 +388,7 @@ function ToolsMenu() {
               onChange={(e) =>
                 setStyle((prev) => ({ ...prev, qrBgColor: e.target.value }))
               }
-              label={"QR background"}
+              label={"Background"}
               type={"color"}
             />
           </div>
@@ -403,13 +396,27 @@ function ToolsMenu() {
       </div>
       <div className="w-full border rounded-2xl p-2 border-(--borderColor) my-2 ">
         <div className="w-full">
-          <h1 className="px-2  font-medium">QR Code Logo</h1>
+          <div className="flex items-end  ">
+            {!style.qrLogo ? (
+              <h1 className="px-2  font-medium">Logo</h1>
+            ) : (
+              <div className="bg-black/20 flex items-center rounded-xl overflow-hidden border border-(--borderColor) w-full">
+                <div className="bg-amber-50 border-r border-(--borderColor) p-2">
+                  <h3 classname="font-bold">Preview</h3>
+                </div>
+                <img
+                  className=" h-auto max-h-8 max-w-40 w-auto p-2"
+                  src={style.qrLogo}
+                />
+              </div>
+            )}
+          </div>
           <div className="flex items-center justify-between gap-1 w-full mb-1 ">
             <Input
               type={"text"}
               placeholder={"Paste here your URL Logo"}
               value={style.qrLogo}
-              label={"Logo URL"}
+              label={"URL"}
               onChange={(e) =>
                 setStyle((prev) => ({
                   ...prev,
@@ -425,7 +432,11 @@ function ToolsMenu() {
                 setStyle((prev) => {
                   const width = Number(e.target.value);
                   if (aspect === "square") {
-                    return { ...prev, qrLogoWidth: width, qrLogoHeight: width };
+                    return {
+                      ...prev,
+                      qrLogoWidth: width,
+                      qrLogoHeight: width,
+                    };
                   }
                   return { ...prev, qrLogoWidth: width };
                 })
@@ -437,7 +448,6 @@ function ToolsMenu() {
             />
 
             <Input
-              type="number"
               value={style.qrLogoHeight}
               onChange={(e) =>
                 setStyle((prev) => {

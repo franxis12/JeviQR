@@ -1,9 +1,13 @@
 import QRCodeGenerator from "./QRCodeGenerator";
 import { useQRCode } from "../context/QRCodeContext";
 import { myImages } from "../imports/images";
+import { useState } from "react";
 
 function Canvas() {
   const { qrText, customName, style } = useQRCode();
+
+  //temp varible
+  const [rotation, setRotation] = useState(0);
 
   return (
     <div className="flex flex-col items-center gap-10 w-full  ">
@@ -21,6 +25,10 @@ function Canvas() {
                     fontWeight: customName.fontWeight,
                     textDecoration: customName.textDecoration, //overline, line-through, underline
                     color: customName.fontColor,
+                    backgroundColor: "#fff0", //feature
+                    padding: 0, //feature
+                    borderRadius: 0, //feature
+                    rotate: `${rotation}deg`,
                   }}
                 >
                   {customName.name}

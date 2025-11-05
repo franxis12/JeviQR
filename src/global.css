@@ -9,6 +9,7 @@
     --buttonSelected: #ff9500;
     --buttonHover: #fdbc61;
     --textPrimary: #ff9500;
+    --pressedButton: #000;
 
     --inputColor: #1a1a1a;
     --borderColor: #ffffff55;
@@ -20,12 +21,13 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg-color: #c0c0c0;
+    --bg-color: #dfdfdf;
     --text-color: #0f172a;
     --interfaceColor: #fff;
-     --buttonSelected: #ff9500;
+    --buttonSelected: #ff9500;
     --buttonHover: #ffb650;
-        --textPrimary: #ff9500;
+    --textPrimary: #ff9500;
+    --pressedButton: #808080;
 
 
     --inputColor: #cbcbcb;
@@ -77,4 +79,29 @@ body {
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
       }
+
+       /* Scrollbar personalizado */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 30px; /* ancho de la barra */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent; /* sin fondo */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #ef0b0b; /* color del scroll */
+    border-radius: 8px; /* bordes redondeados */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #04ff3a; /* color al pasar el mouse */
+  }
+
+  /* Firefox */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #88888800 transparent;
+  }
+
     }
