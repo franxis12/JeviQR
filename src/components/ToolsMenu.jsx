@@ -484,6 +484,8 @@ function ToolsMenu() {
               max={1}
               min={0}
             />
+          </div>
+          <div className="flex items-center justify-between gap-1 w-full mb-1 ">
             <Button
               height={"h-7"}
               selected={style.excavate}
@@ -513,12 +515,6 @@ function ToolsMenu() {
           </div>
         </div>
       </div>
-      <button
-        className="mt-4 w-full rounded-lg bg-(--buttonSelected) hover: py-2 text-sm font-medium text-black transition hover:bg-white/20"
-        onClick={handlePrint}
-      >
-        print
-      </button>
     </div>
   );
 }

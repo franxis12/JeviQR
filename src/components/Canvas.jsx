@@ -2,6 +2,7 @@ import QRCodeGenerator from "./QRCodeGenerator";
 import { useQRCode } from "../context/QRCodeContext";
 import { myImages } from "../imports/images";
 import { useState } from "react";
+import DownloadableQR from "./DownloadableQR";
 
 function Canvas() {
   const { qrText, customName, style } = useQRCode();
