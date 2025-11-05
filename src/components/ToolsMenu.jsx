@@ -51,7 +51,7 @@ function ToolsMenu() {
   };
 
   return (
-    <div className="overflow-x-hidden overflow-y-scroll no-scrollbar  rounded-2xl w-80 h-6/8 border transition-colors duration-500 border-amber-50/20 bg-(--interfaceColor)/75 hover:bg-(--interfaceColor)    fixed p-3 right-3  top-20 ">
+    <div className="overflow-x-hidden overflow-y-scroll no-scrollbar  rounded-2xl w-80 h-7/8 border transition-colors duration-500 border-amber-50/20 bg-(--interfaceColor)/75 hover:bg-(--interfaceColor)    fixed p-3 right-3  top-20 ">
       {" "}
       {/*overflow-x-hidden overflow-y-scroll*/}
       {/*Custom Text*/}
@@ -405,6 +405,8 @@ function ToolsMenu() {
                   <h3 classname="font-bold">Preview</h3>
                 </div>
                 <img
+                  crossOrigin="anonymous"
+                  alt="qr logo"
                   className=" h-auto max-h-8 max-w-40 w-auto p-2"
                   src={style.qrLogo}
                 />

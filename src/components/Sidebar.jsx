@@ -20,8 +20,6 @@ function Sidebar({ user }) {
     }
   }, [isTable, isMobile]);
 
-  console.log(currentPage + "Sidebar");
-
   return (
     <div
       className={`bg-(--interfaceColor) z-10 h-screen p-2 border-r border-slate-50/30 fixed flex flex-col justify-between  ${
@@ -41,7 +39,12 @@ function Sidebar({ user }) {
             isMobile && !expanded ? "absolute translate-x-55 " : "relative"
           } `}
         >
-          <img src={myImages.logo} className="rounded-lg w-15" />
+          <img
+            src={myImages.logo}
+            className="rounded-lg w-15"
+            crossOrigin="anonymous"
+            alt="logo"
+          />
         </button>
       </div>
       <div className=" mt-10 gap-1 flex-col flex h-5/8">
