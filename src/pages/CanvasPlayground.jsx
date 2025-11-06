@@ -18,6 +18,9 @@ function CanvasPlayground() {
     setIsDragging(true);
     pointerStart.current = { x: clientX, y: clientY };
     dragStart.current = position;
+    console.log(dragStart.current);
+    console.log(pointerStart.current);
+    console.log(event);
   };
 
   useEffect(() => {
@@ -62,14 +65,22 @@ function CanvasPlayground() {
           <div
             role="presentation"
             onPointerDown={handlePointerDown}
-            className="absolute h-16 w-16 rounded-lg bg-amber-400 shadow-lg transition-colors hover:bg-amber-300"
+            className="absolute h-70 w-100 rounded-lg bg-amber-400 shadow-lg transition-colors hover:bg-amber-300"
             style={{
               transform: `translate(${position.x}px, ${position.y}px)`,
             }}
-          />
+          >
+            <div className="w-10 h-10 bg-amber-950 rounded-md"></div>
+          </div>
         </div>
         <code className="rounded bg-slate-800 px-3 py-1 text-xs">
           {JSON.stringify(position)}
+        </code>
+        <code className="rounded bg-slate-800 px-3 py-1 text-xs">
+          {JSON.stringify(dragStart)}
+        </code>
+        <code className="rounded bg-slate-800 px-3 py-1 text-xs">
+          {JSON.stringify(pointerStart)}
         </code>
       </div>
     </div>

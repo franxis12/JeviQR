@@ -5,7 +5,7 @@ import { useState } from "react";
 function Canvas() {
   const { qrText, customName, style } = useQRCode();
 
-  //temp varible
+  //temp variable
   const [rotation, setRotation] = useState(0);
 
   return (
