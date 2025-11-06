@@ -31,7 +31,7 @@ export function QRCodeProvider({ children }) {
     qrCodeLevel: "M",
     qrLogoWidth: 100,
     qrLogoHeight: 100,
-    qrLogo: "",
+    qrLogo: undefined,
     qrLogoOpacity: 1,
     excavate: true,
   });

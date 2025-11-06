@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
+import CanvasEditor from "./pages/CanvasEditor";
+import CanvasPlayground from "./pages/CanvasPlayground";
 import { supabase } from "./auth/supabaseClient";
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/canvas-editor" element={<CanvasEditor />} />
+        <Route path="/playground" element={<CanvasPlayground />} />
       </Routes>
     </BrowserRouter>
   );

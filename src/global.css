@@ -38,7 +38,8 @@
 
 body {
     background-color: var(--bg-color);
-
+   background-image: url('/src/assets/background/dotted-bg.svg');
+   background-repeat: repeat;
   color: var(--text-color);
 }
 

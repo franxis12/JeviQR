@@ -4,8 +4,6 @@ import Header from "../components/Header.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 import Canvas from "../components/Canvas.jsx";
 import ToolsMenu from "../components/ToolsMenu.jsx";
-import { QRCodeProvider } from "../context/QRCodeContext.jsx";
-import { PageContextProvider } from "../context/PageContext.jsx";
 import { useState } from "react";
 import { myImages } from "../imports/images.js";
 
@@ -20,29 +18,25 @@ function Dashboard() {
         url="https://jeviqr.com/dashboard"
       />
 
-      <QRCodeProvider>
-        <PageContextProvider>
-          <div className="relative min-h-screen w-full overflow-hidden">
-            <myImages.bg
-              className="pointer-events-none text-(--text-color)/35  absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2"
-              style={{ width: 2000, height: 1800 }}
-            />
-            <div className={`flex  `}>
-              <Sidebar user={user}></Sidebar>
-              <div className="w-full h-full transition-all duration-900">
-                <Header user={user}></Header>
-                <div className="w-full h-full flex  items-center justify-center   ">
-                  <Canvas customName={customName}></Canvas>
-                </div>
-                <ToolsMenu
-                  customName={customName}
-                  setCustomName={setCustomName}
-                ></ToolsMenu>
-              </div>
+      <div className="relative min-h-screen w-full overflow-hidden">
+        <myImages.bg
+          className="pointer-events-none text-(--text-color)/35  absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2"
+          style={{ width: 2000, height: 1800 }}
+        />
+        <div className={`flex  `}>
+          <Sidebar user={user}></Sidebar>
+          <div className="w-full h-full transition-all duration-900">
+            <Header user={user}></Header>
+            <div className="w-full h-full flex  items-center justify-center   ">
+              <Canvas customName={customName}></Canvas>
             </div>
+            <ToolsMenu
+              customName={customName}
+              setCustomName={setCustomName}
+            ></ToolsMenu>
           </div>
-        </PageContextProvider>
-      </QRCodeProvider>
+        </div>
+      </div>
     </>
   );
 }

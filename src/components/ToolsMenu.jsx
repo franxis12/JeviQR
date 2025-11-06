@@ -51,7 +51,7 @@ function ToolsMenu() {
   };
 
   return (
-    <div className="overflow-x-hidden overflow-y-scroll no-scrollbar  rounded-2xl w-80 h-7/8 border transition-colors duration-500 border-amber-50/20 bg-(--interfaceColor)/75 hover:bg-(--interfaceColor)    fixed p-3 right-3  top-20 ">
+    <div className="overflow-x-hidden overflow-y-scroll no-scrollbar   rounded-2xl w-80 h-7/8 border transition-all duration-500 border-amber-50/20 bg-(--interfaceColor)/75 hover:bg-(--interfaceColor)  z-10  fixed p-3 right-3  top-20 ">
       {" "}
       {/*overflow-x-hidden overflow-y-scroll*/}
       {/*Custom Text*/}
@@ -74,7 +74,7 @@ function ToolsMenu() {
           icon={customName.visible ? Icon.eye : Icon.eyeSlash}
           selected={!customName.visible}
         />
-        <div className="w-full ">
+        <div className="w-full  ">
           <h1 className="px-2  font-medium">Font</h1>
           <div className="flex items-center justify-between gap-1 w-full mb-1 ">
             <Input
