@@ -143,10 +143,12 @@ function CanvasEditor() {
           <div className="w-full h-full transition-all duration-900">
             <Header user={user}></Header>
             <div className="w-full h-full flex  items-center justify-center   "></div>
-            <ToolsMenu
-              customName={customName}
-              setCustomName={setCustomName}
-            ></ToolsMenu>
+            <div onPointerDown={(e) => e.stopPropagation()}>
+              <ToolsMenu
+                customName={customName}
+                setCustomName={setCustomName}
+              ></ToolsMenu>
+            </div>
           </div>
         </div>
       </div>
