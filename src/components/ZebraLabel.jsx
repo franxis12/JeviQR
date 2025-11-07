@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQRCode } from "../context/QRCodeContext.jsx";
+import QRCodeGenerator from "./QRCodeGenerator.jsx";
+import { useModeCanvas } from "../context/ModeCanvas.jsx";
 
 export default function ZebraLabel() {
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState(false);
-  const { qrText, customName } = useQRCode();
+  const { qrText, customName, style } = useQRCode();
+  const { modeCanvasActive, setModeCanvasActive } = useModeCanvas();
 
   // 🔹 Genera el código ZPL dinámico
   const generateZpl = ({
@@ -15,8 +18,12 @@ export default function ZebraLabel() {
       "^XA",
       "^PW1200",
       "^LL1800",
-      "^FO50,50^A0N,60,60^FD" + title + "^FS",
-      "^FO50,150^BQN,2,10^FDLA," + qrData + "^FS",
+      `^FO50,50^A0N,${customName.customNameSize},${
+        customName.customNameSize + 50
+      }^FD` +
+        title +
+        "^FS",
+      `^FO50,150^BQN,2,10^FD${style.qrCodeLevel}A,` + qrData + "^FS",
       "^XZ",
     ].join("\n");
   };
@@ -72,7 +79,17 @@ export default function ZebraLabel() {
   };
 
   // 🔹 Botón de vista previa
-  const handlePreview = () => setPreview(!preview);
+  const handlePreview = () => {
+    console.log(modeCanvasActive);
+
+    if (modeCanvasActive === "canvas") {
+      setModeCanvasActive("zebra");
+      console.log();
+    } else if (modeCanvasActive === "zebra") {
+      setModeCanvasActive("canvas");
+    }
+    setPreview(!preview);
+  };
 
   return (
     <div className="flex flex-col items-center gap-4 p-6">
@@ -140,13 +157,7 @@ export default function ZebraLabel() {
                 justifyContent: "center",
               }}
             >
-              {/* QR nativo del navegador */}
-              <img
-                src={`https://api.qrserver.com/v1/create-qr-code/?data=${
-                  qrText.name || "ASSET-00123"
-                }&size=120x120`}
-                alt="QR Preview"
-              />
+              <QRCodeGenerator />
             </div>
 
             {/* Texto informativo */}

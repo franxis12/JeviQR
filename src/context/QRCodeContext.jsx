@@ -1,9 +1,11 @@
 import { createContext, useContext, useState } from "react";
 import { LogoPng } from "../imports/icons";
+import { useModeCanvas } from "./ModeCanvas";
 
 const QRCodeContext = createContext();
 
 export function QRCodeProvider({ children }) {
+  const { modeCanvasActive, setModeCanvasActive } = useModeCanvas();
   const [qrText, setQrText] = useState({
     name: "https://www.jeviqr.com",
     qrTextSize: 20,
@@ -21,10 +23,10 @@ export function QRCodeProvider({ children }) {
     fontColor: "#ff9500",
   });
   const [style, setStyle] = useState({
-    border: 10,
-    radius: 50,
+    border: modeCanvasActive === "zebra" ? 0 : 10,
+    radius: modeCanvasActive === "zebra" ? 0 : 50,
     borderColor: "#ff9500",
-    qrCodeSize: 240,
+    qrCodeSize: modeCanvasActive === "zebra" ? 100 : 240,
     qrBgColor: "#ffffff",
     qrMarginSize: 2,
     qrCodeColor: "#000000",
