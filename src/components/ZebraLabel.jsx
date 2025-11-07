@@ -21,15 +21,13 @@ export default function ZebraLabel() {
       "^LL1800",
       `^FO50,50^A0N,${customName.customNameSize},${
         customName.customNameSize + 50
-      }^FD` +
-        title +
-        "^FS",
-      `^FO50,150^BQN,2,10^FD${style.qrCodeLevel}A,` + qrData + "^FS",
+      }^FD${title}^FS`,
+      `^FO50,150^BQN,2,10^FD${style.qrCodeLevel}A,${qrData}^FS`,
       "^XZ",
     ].join("\n");
   };
 
-  // 🔹 Botón para imprimir directamente (Supabase)
+  // 🔹 Imprimir desde Supabase (red corporativa)
   const handlePrint = async () => {
     setLoading(true);
     const zpl = generateZpl({
@@ -63,7 +61,7 @@ export default function ZebraLabel() {
     }
   };
 
-  // 🔹 Botón para descargar el archivo .txt localmente
+  // 🔹 Descargar archivo .txt
   const handleDownload = () => {
     const zpl = generateZpl({
       title: customName.name || "Mi Etiqueta",
@@ -79,13 +77,38 @@ export default function ZebraLabel() {
     URL.revokeObjectURL(url);
   };
 
-  // 🔹 Botón de vista previa
-  const handlePreview = () => {
-    console.log(modeCanvasActive);
+  // 🔹 Imprimir localmente (sin Supabase)
+  const handleLocalPrint = () => {
+    const zpl = generateZpl({
+      title: customName.name || "Dealer Tire - Asset",
+      qrData: qrText.name || "ASSET-00123",
+    });
 
+    const blob = new Blob([zpl], { type: "text/plain;charset=us-ascii" });
+    const url = URL.createObjectURL(blob);
+
+    // Crear un iframe temporal que use el diálogo de impresión del sistema
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    iframe.src = url;
+    document.body.appendChild(iframe);
+
+    iframe.onload = () => {
+      iframe.contentWindow?.focus();
+      iframe.contentWindow?.print(); // abre la ventana de impresión
+    };
+
+    // Limpieza del DOM después de imprimir
+    setTimeout(() => {
+      document.body.removeChild(iframe);
+      URL.revokeObjectURL(url);
+    }, 1000);
+  };
+
+  // 🔹 Vista previa
+  const handlePreview = () => {
     if (modeCanvasActive === "canvas") {
       setModeCanvasActive("zebra");
-      console.log();
     } else if (modeCanvasActive === "zebra") {
       setModeCanvasActive("canvas");
     }
@@ -96,6 +119,7 @@ export default function ZebraLabel() {
     <div className="flex flex-col items-center gap-4 p-6">
       <h2 className="text-xl font-semibold">Etiqueta Zebra</h2>
 
+      {/* Descargar .txt */}
       <Button
         width={"w-60"}
         onClick={handleDownload}
@@ -104,6 +128,7 @@ export default function ZebraLabel() {
         Descargar .txt (ZPL)
       </Button>
 
+      {/* Imprimir desde Supabase */}
       <Button
         selected={true}
         width={"w-60"}
@@ -113,9 +138,19 @@ export default function ZebraLabel() {
           loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
         }`}
       >
-        {loading ? "Printing..." : "Print label"}
+        {loading ? "Printing..." : "Print via Supabase"}
       </Button>
 
+      {/* ✅ Nuevo botón para imprimir localmente */}
+      <Button
+        width={"w-60"}
+        onClick={handleLocalPrint}
+        className="px-6 py-2 rounded-md text-white bg-orange-600 hover:bg-orange-700 transition"
+      >
+        Print Locally (Ctrl + P)
+      </Button>
+
+      {/* Vista previa */}
       <Button
         width={"w-60"}
         onClick={handlePreview}
@@ -124,7 +159,6 @@ export default function ZebraLabel() {
         {preview ? "Ocultar vista previa" : "Ver vista previa"}
       </Button>
 
-      {/* 🔹 Contenedor de vista previa */}
       {preview && (
         <div className="mt-6 border-2 border-gray-300 bg-white/50 shadow-md p-4 rounded-md">
           <h3 className="font-semibold mb-2 text-center text-black">
@@ -143,12 +177,10 @@ export default function ZebraLabel() {
               padding: "10px",
             }}
           >
-            {/* Título */}
             <h4 className="font-bold text-lg mb-2 text-center text-black">
               {customName.name || "Dealer Tire - Asset"}
             </h4>
 
-            {/* QR */}
             <div
               className="bg-white border border-gray-400 p-2 mb-3"
               style={{
@@ -162,7 +194,6 @@ export default function ZebraLabel() {
               <QRCodeGenerator />
             </div>
 
-            {/* Texto informativo */}
             <div className="text-center text-sm text-black">
               <p>
                 <strong>ID:</strong> {qrText.name || "ASSET-00123"}
