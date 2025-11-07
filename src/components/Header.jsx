@@ -3,6 +3,7 @@ import NavButton from "../utils/NavButton";
 import { Icon } from "../imports/icons";
 import { handleDownloadQR } from "./Canvas";
 import { handleDownloadQRsvg } from "./Canvas";
+import ZebraLabel from "./ZebraLabel";
 
 function Header({ user }) {
   const [hover, setHover] = useState(true);
