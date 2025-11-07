@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
  * CanvasPlayground
  *
  * Un ejemplo mínimo con un cuadrado que se puede arrastrar.
- * Sirve como playground para entender el patrón sin lógica adicional.
+ * Sirve como playground para entender el patrón sin lógica adicional//.
  */
 function CanvasPlayground() {
   const [position, setPosition] = useState({ x: 0, y: 0 });

@@ -17,10 +17,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/landing" element={<Landing />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/canvas-editor" element={<CanvasEditor />} />
+        <Route path="/" element={<CanvasEditor />} />
         <Route path="/playground" element={<CanvasPlayground />} />
       </Routes>
     </BrowserRouter>
