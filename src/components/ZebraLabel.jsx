@@ -9,6 +9,7 @@ export default function ZebraLabel() {
   const [preview, setPreview] = useState(false);
   const { qrText, customName, style } = useQRCode();
   const { modeCanvasActive, setModeCanvasActive } = useModeCanvas();
+  const [hidden, setHidden] = useState(false);
 
   // 🔹 Genera el código ZPL dinámico
   const generateZpl = ({
@@ -138,29 +139,31 @@ export default function ZebraLabel() {
 
   return (
     <div className="flex flex-col items-center gap-4 p-6">
-      <h2 className="text-xl font-semibold">Etiqueta Zebra</h2>
-
       {/* Descargar .txt */}
-      <Button
-        width={"w-60"}
-        onClick={handleDownload}
-        className="px-6 py-2 rounded-md text-white bg-green-600 hover:bg-green-700 transition"
-      >
-        Descargar .txt (ZPL)
-      </Button>
+      {hidden && (
+        <Button
+          width={"w-60"}
+          onClick={handleDownload}
+          className="px-6 py-2 rounded-md text-white bg-green-600 hover:bg-green-700 transition"
+        >
+          Descargar .txt (ZPL)
+        </Button>
+      )}
 
       {/* Imprimir desde Supabase */}
-      <Button
-        selected={true}
-        width={"w-60"}
-        onClick={handlePrint}
-        disabled={loading}
-        className={`px-6 py-2 rounded-md text-white transition ${
-          loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
-        }`}
-      >
-        {loading ? "Printing..." : "Print via Supabase"}
-      </Button>
+      {hidden && (
+        <Button
+          selected={true}
+          width={"w-60"}
+          onClick={handlePrint}
+          disabled={loading}
+          className={`px-6 py-2 rounded-md text-white transition ${
+            loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
+          }`}
+        >
+          {loading ? "Printing..." : "Print via Supabase"}
+        </Button>
+      )}
 
       {/* ✅ Nuevo botón para imprimir localmente */}
       <Button
@@ -168,17 +171,19 @@ export default function ZebraLabel() {
         onClick={handleLocalPrint}
         className="px-6 py-2 rounded-md text-white bg-orange-600 hover:bg-orange-700 transition"
       >
-        Print Locally (Ctrl + P)
+        Print Zebra
       </Button>
 
       {/* Vista previa */}
-      <Button
-        width={"w-60"}
-        onClick={handlePreview}
-        className="px-6 py-2 rounded-md text-white bg-purple-600 hover:bg-purple-700 transition"
-      >
-        {preview ? "Ocultar vista previa" : "Ver vista previa"}
-      </Button>
+      {hidden && (
+        <Button
+          width={"w-60"}
+          onClick={handlePreview}
+          className="px-6 py-2 rounded-md text-white bg-purple-600 hover:bg-purple-700 transition"
+        >
+          {preview ? "Ocultar vista previa" : "Ver vista previa"}
+        </Button>
+      )}
 
       {preview && (
         <div className="mt-6 border border-gray-300 bg-white/70 shadow-md rounded-xl p-6 flex flex-col items-center justify-center">
