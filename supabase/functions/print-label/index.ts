@@ -22,7 +22,7 @@ serve(async (req) => {
 
     // --- hasta aquí validamos bien ---
 
-    const printerIp = "192.168.1.115"; //640zebra1
+    const printerIp = "640zebra1"; //640zebra1
     const printerPort = 9100;
 
     const conn = await Deno.connect({ hostname: printerIp, port: printerPort });
