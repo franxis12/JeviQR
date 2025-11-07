@@ -1,16 +1,28 @@
-// supabase/functions/print-label/index.ts
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { serve } from "https://deno.land/std@0.208.0/http/server.ts";
 
 serve(async (req) => {
   try {
-    const { zpl } = await req.json();
-
-    if (!zpl) {
-      return new Response("Missing ZPL data", { status: 400 });
+    // Verificar si el cuerpo está vacío
+    const text = await req.text();
+    if (!text) {
+      return new Response("No se recibió ningún cuerpo en la petición.", { status: 400 });
     }
 
-    // Dirección IP de la impresora (ajústala a la de la empresa)
-    const printerIp = "192.168.1.115";
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      return new Response("El cuerpo no es JSON válido.", { status: 400 });
+    }
+
+    const { zpl } = data;
+    if (!zpl) {
+      return new Response("No se encontró el campo 'zpl' en el JSON.", { status: 400 });
+    }
+
+    // --- hasta aquí validamos bien ---
+
+    const printerIp = "192.168.1.115"; //640zebra1
     const printerPort = 9100;
 
     const conn = await Deno.connect({ hostname: printerIp, port: printerPort });
@@ -21,6 +33,7 @@ serve(async (req) => {
     return new Response(JSON.stringify({ success: true }), {
       headers: { "Content-Type": "application/json" },
     });
+
   } catch (error) {
     console.error(error);
     return new Response(JSON.stringify({ error: error.message }), {
