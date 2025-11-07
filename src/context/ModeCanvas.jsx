@@ -4,7 +4,7 @@ const ModeCanvas = createContext();
 
 export function ModeCanvasContextProvider({ children }) {
   const [modeCanvasActive, setModeCanvasActive] = useState("canvas");
-
+  //
   return (
     <ModeCanvas.Provider value={{ modeCanvasActive, setModeCanvasActive }}>
       {children}
