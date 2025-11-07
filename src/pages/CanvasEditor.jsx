@@ -7,10 +7,12 @@ import Header from "../components/Header";
 import { useUser } from "../context/UserContext";
 import Canvas from "../components/Canvas";
 import ZebraLabel from "../components/ZebraLabel";
+import { useModeCanvas } from "../context/ModeCanvas";
 
 function CanvasEditor() {
   const { user } = useUser();
   const [customName, setCustomName] = useState("");
+  const { modeCanvasActive, setModeCanvasActive } = useModeCanvas();
 
   const PATTERN_SIZE = 200;
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -136,7 +138,9 @@ function CanvasEditor() {
             }}
             onPointerDown={handleShapePointerDown}
           >
-            <Canvas customName={customName} />
+            {modeCanvasActive === "canvas" && (
+              <Canvas customName={customName} />
+            )}
           </div>
         </div>
         <div className={`flex  `}>

@@ -3,8 +3,11 @@ import { useQRCode } from "../context/QRCodeContext.jsx";
 import Input from "../utils/Input.jsx";
 import Button from "../utils/Button.jsx";
 import { Icon } from "../imports/icons.js";
+import { useModeCanvas } from "../context/ModeCanvas.jsx";
 
 function ToolsMenu() {
+  const { modeCanvasActive, setModeCanvasActive } = useModeCanvas();
+
   const { qrText, setQrText, customName, setCustomName, style, setStyle } =
     useQRCode();
   const [aspect, setAspect] = useState("");
@@ -49,6 +52,44 @@ function ToolsMenu() {
       return { ...prev, textDecoration: Array.from(current).join(" ") };
     });
   };
+
+  useEffect(() => {
+    if (modeCanvasActive === "zebra") {
+      setStyle((prev) => ({ ...prev, border: 0 }));
+      setStyle({
+        border: 0,
+        radius: 0,
+        borderColor: "#ff9500",
+        qrCodeSize: 150,
+        qrBgColor: "#ffffff",
+        qrMarginSize: 1,
+        qrCodeColor: "#000000",
+        qrCodeLevel: "H",
+        qrLogoWidth: 0,
+        qrLogoHeight: 0,
+        qrLogo: undefined,
+        qrLogoOpacity: 1,
+        excavate: false,
+      });
+    } else {
+      setStyle((prev) => ({ ...prev, border: 10 }));
+      setStyle({
+        border: 10,
+        radius: 50,
+        borderColor: "#ff9500",
+        qrCodeSize: 240,
+        qrBgColor: "#ffffff",
+        qrMarginSize: 2,
+        qrCodeColor: "#000000",
+        qrCodeLevel: "M",
+        qrLogoWidth: 100,
+        qrLogoHeight: 100,
+        qrLogo: undefined,
+        qrLogoOpacity: 1,
+        excavate: true,
+      });
+    }
+  }, [modeCanvasActive, setStyle]);
 
   return (
     <div className="overflow-x-hidden overflow-y-scroll no-scrollbar   rounded-2xl w-80 h-7/8 border transition-all duration-500 border-amber-50/20 bg-(--interfaceColor)/75 hover:bg-(--interfaceColor)  z-100  absolute  p-2 right-3  top-20 ">

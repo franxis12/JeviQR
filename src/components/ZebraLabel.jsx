@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useQRCode } from "../context/QRCodeContext.jsx";
 import QRCodeGenerator from "./QRCodeGenerator.jsx";
 import { useModeCanvas } from "../context/ModeCanvas.jsx";
+import Button from "../utils/Button.jsx";
 
 export default function ZebraLabel() {
   const [loading, setLoading] = useState(false);
@@ -95,32 +96,33 @@ export default function ZebraLabel() {
     <div className="flex flex-col items-center gap-4 p-6">
       <h2 className="text-xl font-semibold">Etiqueta Zebra</h2>
 
-      {/* 🔘 Botón para imprimir directo */}
-      <button
+      <Button
+        width={"w-60"}
+        onClick={handleDownload}
+        className="px-6 py-2 rounded-md text-white bg-green-600 hover:bg-green-700 transition"
+      >
+        Descargar .txt (ZPL)
+      </Button>
+
+      <Button
+        selected={true}
+        width={"w-60"}
         onClick={handlePrint}
         disabled={loading}
         className={`px-6 py-2 rounded-md text-white transition ${
           loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
         }`}
       >
-        {loading ? "Imprimiendo..." : "Imprimir directamente"}
-      </button>
+        {loading ? "Printing..." : "Print label"}
+      </Button>
 
-      {/* 🔘 Botón para descargar el archivo .txt */}
-      <button
-        onClick={handleDownload}
-        className="px-6 py-2 rounded-md text-white bg-green-600 hover:bg-green-700 transition"
-      >
-        Descargar .txt (ZPL)
-      </button>
-
-      {/* 🔘 Botón para mostrar/ocultar vista previa */}
-      <button
+      <Button
+        width={"w-60"}
         onClick={handlePreview}
         className="px-6 py-2 rounded-md text-white bg-purple-600 hover:bg-purple-700 transition"
       >
         {preview ? "Ocultar vista previa" : "Ver vista previa"}
-      </button>
+      </Button>
 
       {/* 🔹 Contenedor de vista previa */}
       {preview && (
