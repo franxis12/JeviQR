@@ -17,12 +17,26 @@ export default function ZebraLabel() {
   } = {}) => {
     return [
       "^XA",
-      "^PW1200",
-      "^LL1800",
-      `^FO50,50^A0N,${customName.customNameSize},${
-        customName.customNameSize + 50
-      }^FD${title}^FS`,
-      `^FO50,150^BQN,2,10^FD${style.qrCodeLevel}A,${qrData}^FS`,
+      "^PW600", // ancho total en dots (≈ 2 pulgadas)
+      "^LL800", // alto total (≈ 3 pulgadas)
+
+      // Texto superior (centrado)
+      "^FO100,40",
+      `^A0N,${customName.customNameSize || 60},${
+        customName.customNameSize || 60
+      }`,
+      "^FB400,1,0,C,0", // centrado en ancho 400
+      `^FD${title || "CUSTOM NAME"}^FS`,
+
+      // Borde alrededor del QR
+      "^FO60,120",
+      "^GB480,480,8,B,16^FS", // ancho=480, alto=480, línea=8, redondeado=16
+
+      // QR centrado dentro del borde
+      "^FO100,160",
+      "^BQN,2,10",
+      `^FD${style.qrCodeLevel || "Q"}A,${qrData}^FS`,
+
       "^XZ",
     ].join("\n");
   };
@@ -160,47 +174,30 @@ export default function ZebraLabel() {
       </Button>
 
       {preview && (
-        <div className="mt-6 border-2 border-gray-300 bg-white/50 shadow-md p-4 rounded-md">
-          <h3 className="font-semibold mb-2 text-center text-black">
-            Vista previa
-          </h3>
-
+        <div className="mt-6 border border-gray-300 bg-white/70 shadow-md rounded-xl p-6 flex flex-col items-center justify-center">
           <div
-            className="relative bg-gray-50 border border-dashed border-gray-400 rounded-lg"
+            className="relative flex flex-col items-center justify-center bg-white rounded-xl border-4 border-gray-800"
             style={{
-              width: "300px",
-              height: "450px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "flex-start",
+              width: "250px",
+              height: "350px",
               padding: "10px",
             }}
           >
-            <h4 className="font-bold text-lg mb-2 text-center text-black">
-              {customName.name || "Dealer Tire - Asset"}
+            {/* CUSTOM NAME */}
+            <h4 className="font-bold text-lg text-gray-700 mb-4 tracking-wide">
+              {customName.name || "CUSTOM NAME"}
             </h4>
 
+            {/* QR con borde redondeado */}
             <div
-              className="bg-white border border-gray-400 p-2 mb-3"
+              className="flex items-center justify-center bg-white rounded-xl border-4 border-black"
               style={{
-                width: "120px",
-                height: "120px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                width: "220px",
+                height: "220px",
+                overflow: "hidden",
               }}
             >
               <QRCodeGenerator />
-            </div>
-
-            <div className="text-center text-sm text-black">
-              <p>
-                <strong>ID:</strong> {qrText.name || "ASSET-00123"}
-              </p>
-              <p>
-                <strong>Fecha:</strong> {new Date().toLocaleDateString()}
-              </p>
             </div>
           </div>
         </div>
