@@ -9,14 +9,13 @@ function QRCodeGenerator() {
       <QRCodeCanvas
         value={qrText.name}
         imageSettings={{
-          src: style.logo, //"https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/1024px-Microsoft_logo.svg.png", // Replace with your logo URL
+          src: style.qrLogo, //"https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/1024px-Microsoft_logo.svg.png", // Replace with your logo URL
           x: undefined, // Center the image horizontally
           y: undefined, // Center the image vertically
           height: style.qrLogoHeight,
           width: style.qrLogoWidth,
-          excavate: false,
-          opacity: 1,
-          padding: 5,
+          excavate: style.excavate,
+          opacity: style.qrLogoOpacity,
         }}
         size={style.qrCodeSize} // tamaño del QR
         bgColor={style.qrBgColor}
