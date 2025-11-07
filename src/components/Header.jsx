@@ -13,7 +13,6 @@ function Header({ user }) {
   return (
     <div className=" s w-full sticky to-0%  h-15 flex items-center justify-end ">
       <div className="flex items-center justify-end  gap-2 px-5 py-1">
-        <ZebraLabel />
         <NavButton
           onClick={handleDownloadQRsvg}
           textVisibility={true}
