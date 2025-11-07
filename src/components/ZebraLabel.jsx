@@ -41,7 +41,7 @@ export default function ZebraLabel() {
     ].join("\n");
   };
 
-  // 🔹 Imprimir desde Supabase (red corporativa)
+  // 🔹 Imprimir desde Supabase (red corporativa//)
   const handlePrint = async () => {
     setLoading(true);
     const zpl = generateZpl({
