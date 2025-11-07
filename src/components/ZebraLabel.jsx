@@ -17,24 +17,31 @@ export default function ZebraLabel() {
   } = {}) => {
     return [
       "^XA",
-      "^PW600", // ancho total en dots (≈ 2 pulgadas)
-      "^LL800", // alto total (≈ 3 pulgadas)
+      "^LL600", // alto total (≈ 3 pulgadas)
 
       // Texto superior (centrado)
-      "^FO100,40",
-      `^A0N,${customName.customNameSize || 60},${
-        customName.customNameSize || 60
-      }`,
-      "^FB400,1,0,C,0", // centrado en ancho 400
-      `^FD${title || "CUSTOM NAME"}^FS`,
+      "^FO110,50",
+      `^A0N,60,100`,
+      "^FB600,1,0,C,0", // centrado en ancho 400
+      `^FDCart Number^FS`,
+
+      // Texto superior (centrado)
+      "^FO50,150",
+      `^A0N,400,300`,
+      "^FB750,1,0,C,0", // centrado en ancho 400
+      `^FD${title || "Name not Found"}^FS`,
 
       // Borde alrededor del QR
-      "^FO60,120",
-      "^GB480,480,8,B,16^FS", // ancho=480, alto=480, línea=8, redondeado=16
+      "^FO50,130",
+      "^GB700,350,10,B,2^FS", // ancho=480, alto=480, línea=8, redondeado=16
+
+      // Borde alrededor del QR
+      "^FO50,490",
+      "^GB700,750,10,B,1^FS", // ancho=480, alto=480, línea=8, redondeado=16
 
       // QR centrado dentro del borde
-      "^FO100,160",
-      "^BQN,2,10",
+      "^FO85,513",
+      "^BQN,2,30",
       `^FD${style.qrCodeLevel || "Q"}A,${qrData}^FS`,
 
       "^XZ",
