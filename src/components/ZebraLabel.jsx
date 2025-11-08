@@ -53,7 +53,7 @@ export default function ZebraLabel() {
   const handlePrint = async () => {
     setLoading(true);
     const zpl = generateZpl({
-      title: customName.name || "Dealer Tire - Asset",
+      title: customName.name || "NO NAME FOUND",
       qrData: qrText.name || "ASSET-00123",
     });
 
@@ -175,15 +175,13 @@ export default function ZebraLabel() {
       </Button>
 
       {/* Vista previa */}
-      {hidden && (
-        <Button
-          width={"w-60"}
-          onClick={handlePreview}
-          className="px-6 py-2 rounded-md text-white bg-purple-600 hover:bg-purple-700 transition"
-        >
-          {preview ? "Ocultar vista previa" : "Ver vista previa"}
-        </Button>
-      )}
+      <Button
+        width={"w-60"}
+        onClick={handlePreview}
+        className="px-6 py-2 rounded-md text-white bg-purple-600 hover:bg-purple-700 transition"
+      >
+        {preview ? "Ocultar vista previa" : "Ver vista previa"}
+      </Button>
 
       {preview && (
         <div className="mt-6 border border-gray-300 bg-white/70 shadow-md rounded-xl p-6 flex flex-col items-center justify-center">
