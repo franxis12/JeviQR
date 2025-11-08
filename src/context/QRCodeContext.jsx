@@ -14,6 +14,7 @@ export function QRCodeProvider({ children }) {
   });
   const [customName, setCustomName] = useState({
     name: "JeviQR.com",
+    title: "",
     customNameSize: 50,
     fontWeight: 700,
     textDecoration: "underline",

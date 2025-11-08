@@ -1,26 +1,40 @@
 import React, { useState } from "react";
+import QRCodeGenerator from "./QRCodeGenerator";
+import { useZPLSetting } from "../context/ZplContext";
 
 export default function ZebraLabelBasic() {
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState(false);
+  const { zplSetting, setZplSetting } = useZPLSetting();
+
+  const [labelDesing, setLabelDesing] = useState(zplSetting);
+
+  const tags = {
+    opening: "^XA",
+    closing: "^XZ",
+  };
+
+  const text = {
+    position: { x: `^FO${50},`, y: 50 },
+    font: `^A${zplSetting.text.font}${zplSetting.text.orientation},${zplSetting.text.heigh},${zplSetting.text.width} `,
+    text: `^FD${zplSetting.text.title}^FS`,
+  };
 
   // 🟦 Generar ZPL básico
-  const generateZpl = ({
-    title = "Demo Label",
-    qrData = "https://francismartinez.com",
-  } = {}) => {
+  const generateZpl = () => {
     return [
-      "^XA",
-      "^LL600", // altura de la etiqueta/
-      "^FO100,50",
-      "^A0N,60,60",
-      "^FD" + title + "^FS",
+      tags.opening,
+      "^LL600", // altura de la etiqueta/ 3inch
+
+      text.position.x + text.position.y,
+      text.font,
+      text.text,
 
       "^FO100,150",
       "^BQN,2,10",
-      "^FDQA," + qrData + "^FS",
+      "^FDQA," + zplSetting.qrData + "^FS",
 
-      "^XZ",
+      tags.closing,
     ].join("\n");
   };
 
@@ -82,27 +96,29 @@ export default function ZebraLabelBasic() {
       </button>
 
       {preview && (
-        <div className="mt-6 border border-gray-300 bg-white/70 shadow-md rounded-xl p-6 flex flex-col items-center justify-center">
+        <div className="mt-6 border border-gray-300 bg-white/25 shadow-md rounded-xl p-6 flex flex-col items-center justify-center">
           <div
-            className="relative flex flex-col items-center justify-center bg-white rounded-xl border-4 border-gray-800"
+            className="relative flex flex-col items- just bg-white rounded-xl border border-gray-800"
             style={{
-              width: "250px",
-              height: "350px",
-              padding: "10px",
+              width: "500px",
+              height: "550px",
+              padding: "0px",
             }}
           >
-            <h4 className="font-bold text-lg text-gray-700 mb-4 tracking-wide">
-              Demo Label
+            <h4
+              style={{ fontSize: zplSetting.text.width - 80 }}
+              className={`font-bold  fixed  transform text-black mt-0 tracking-wide
+                  `}
+            >
+              Demo
             </h4>
             <div
-              className="flex items-center justify-center bg-gray-200 rounded-xl border-4 border-black"
+              className="flex items-center justify-center bg-gray-200 rounded-xl border-4 border-"
               style={{
                 width: "220px",
                 height: "220px",
               }}
-            >
-              <span className="text-sm text-gray-600">QR Preview</span>
-            </div>
+            ></div>
           </div>
         </div>
       )}

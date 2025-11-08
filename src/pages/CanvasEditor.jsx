@@ -7,6 +7,8 @@ import Header from "../components/Header";
 import { useUser } from "../context/UserContext";
 import Canvas from "../components/Canvas";
 import ZebraLabel from "../components/ZebraLabel";
+import ZebraLabelBasic from "../components/ZebraLabelBasic";
+import ZebraLabelWithPreview from "../components/ZebraLabelWithPreview";
 import { useModeCanvas } from "../context/ModeCanvas";
 
 function CanvasEditor() {
