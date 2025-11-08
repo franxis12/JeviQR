@@ -11,7 +11,7 @@ export default function ZebraLabelBasic() {
   } = {}) => {
     return [
       "^XA",
-      "^LL600", // altura de la etiqueta
+      "^LL600", // altura de la etiqueta/
       "^FO100,50",
       "^A0N,60,60",
       "^FD" + title + "^FS",
