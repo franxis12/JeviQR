@@ -1,6 +1,14 @@
 import { createContext, useContext, useState } from "react";
+import { zplTemplates } from "../constants/zplTemplates.js";
 
 const ZplContext = createContext();
+
+const initialTemplateValues = zplTemplates.reduce((acc, template) => {
+  acc[template.id] = template.defaultValues
+    ? { ...template.defaultValues }
+    : {};
+  return acc;
+}, {});
 
 export function ZplContextProvider({ children }) {
   const [zplSetting, setZplSetting] = useState({
@@ -22,9 +30,35 @@ export function ZplContextProvider({ children }) {
       },
     },
   });
-  //
+  const [selectedTemplateId, setSelectedTemplateId] = useState(
+    zplTemplates[0]?.id || ""
+  );
+  const [templateValuesById, setTemplateValuesById] = useState(
+    initialTemplateValues
+  );
+
+  const updateTemplateValue = (templateId, key, value) => {
+    setTemplateValuesById((prev) => ({
+      ...prev,
+      [templateId]: {
+        ...(prev[templateId] || {}),
+        [key]: value,
+      },
+    }));
+  };
+
   return (
-    <ZplContext.Provider value={{ zplSetting, setZplSetting }}>
+    <ZplContext.Provider
+      value={{
+        zplSetting,
+        setZplSetting,
+        selectedTemplateId,
+        setSelectedTemplateId,
+        templateValuesById,
+        setTemplateValuesById,
+        updateTemplateValue,
+      }}
+    >
       {children}
     </ZplContext.Provider>
   );
