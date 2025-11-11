@@ -2,7 +2,7 @@ import { QRCodeCanvas } from "qrcode.react";
 import { useQRCode } from "../context/QRCodeContext.jsx";
 
 function QRCodeGenerator() {
-  const { qrText, setQrText, style, setStyle } = useQRCode();
+  const { qrText, style } = useQRCode();
 
   return (
     <div className="flex flex-col items-center gap-4 p-6">

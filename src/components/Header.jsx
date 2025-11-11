@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import NavButton from "../utils/NavButton";
 import { Icon } from "../imports/icons";
 import { handleDownloadQR, handleDownloadQRsvg } from "./Canvas";
 import { useZplLabel } from "../hooks/useZplLabel.js";
 
-function Header({ user }) {
-  const [hover, setHover] = useState(true);
+function Header() {
   const { selectedTemplate, generateZpl, customName } = useZplLabel();
   const canGenerateZpl = Boolean(selectedTemplate?.build);
 
@@ -95,7 +94,7 @@ function Header({ user }) {
         </NavButton>
         <NavButton
           onClick={handlePrint}
-          textVisibility={hover}
+          textVisibility
           icon={Icon.print}
           tap={true}
         >

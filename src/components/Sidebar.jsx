@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
 import useIsMobile from "../hooks/useIsMobile";
 import { myImages } from "../imports/images";
-import Button from "../utils/Button";
 import { Icon } from "../imports/icons";
 import NavButton from "../utils/NavButton";
-import { useNavigate } from "react-router-dom";
 import { usePage } from "../context/PageContext";
 
-function Sidebar({ user }) {
+function Sidebar() {
   const isMobile = useIsMobile();
   const isTable = useIsMobile(1024);
   const [expanded, setExpanded] = useState(isMobile);
-  const { currentPage, setCurrentPage, tap, setTap } = usePage();
-  const navigate = useNavigate();
+  const { tap, setTap } = usePage();
 
   useEffect(() => {
     if (isTable || isMobile) {

@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useQRCode } from "../context/QRCodeContext.jsx";
 import { useZPLSetting } from "../context/ZplContext.jsx";
 import {
@@ -12,8 +12,10 @@ export function useZplLabel() {
 
   const selectedTemplate =
     getZplTemplateById(selectedTemplateId) || zplTemplates[0];
-  const selectedTemplateValues =
-    templateValuesById[selectedTemplate?.id] || {};
+  const selectedTemplateValues = useMemo(
+    () => templateValuesById[selectedTemplate?.id] || {},
+    [templateValuesById, selectedTemplate?.id]
+  );
 
   const generateZpl = useCallback(() => {
     if (!selectedTemplate?.build) return "";

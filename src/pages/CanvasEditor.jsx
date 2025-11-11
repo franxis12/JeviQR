@@ -12,7 +12,7 @@ import { useModeCanvas } from "../context/ModeCanvas";
 function CanvasEditor() {
   const { user } = useUser();
   const [customName, setCustomName] = useState("");
-  const { modeCanvasActive, setModeCanvasActive } = useModeCanvas();
+  const { modeCanvasActive } = useModeCanvas();
 
   const PATTERN_SIZE = 200;
   const [offset, setOffset] = useState({ x: 0, y: 0 });

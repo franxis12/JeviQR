@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import QRCodeGenerator from "./QRCodeGenerator.jsx";
-import Button from "../utils/Button.jsx";
 import ZplTemplateSelector from "./ZplTemplateSelector.jsx";
 import Canvas from "./Canvas.jsx";
 import { useZplLabel } from "../hooks/useZplLabel.js";
 
 export default function ZebraLabel() {
-  const [loading, setLoading] = useState(false);
   const {
     selectedTemplate,
     selectedTemplateValues,
@@ -14,40 +12,6 @@ export default function ZebraLabel() {
     customName,
     qrText,
   } = useZplLabel();
-
-  const handlePrint = async () => {
-    if (!selectedTemplate?.build) {
-      alert("Este template no genera ZPL para imprimir.");
-      return;
-    }
-    setLoading(true);
-    const zpl = generateZpl();
-
-    try {
-      const res = await fetch(
-        "https://ojfpmbkzfxjvxohevvoi.functions.supabase.co/print-label",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ zpl }),
-        }
-      );
-
-      if (!res.ok) throw new Error("Error al enviar a la impresora");
-      const data = await res.json();
-
-      if (data.success) {
-        alert("✅ Etiqueta enviada correctamente a la Zebra!");
-      } else {
-        alert("⚠️ Respuesta inesperada: " + JSON.stringify(data));
-      }
-    } catch (error) {
-      console.error(error);
-      alert("❌ No se pudo imprimir. Ver consola para más detalles.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const renderPreviewContent = () => {
     if (selectedTemplate?.id === "canvas") {

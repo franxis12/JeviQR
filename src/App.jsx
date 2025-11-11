@@ -9,8 +9,7 @@ import { supabase } from "./auth/supabaseClient";
 
 function App() {
   async function testConnection() {
-    const { data, error } = await supabase.from("test").select("*");
-    //console.log(data, error);
+    await supabase.from("test").select("*");
   }
 
   testConnection();

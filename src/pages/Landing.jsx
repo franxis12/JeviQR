@@ -1,9 +1,7 @@
-import { useUser } from "../context/UserContext";
 import SEO from "../components/SEO.jsx";
 import { useNavigate } from "react-router-dom";
 
 function Landing() {
-  const { user } = useUser();
   const navigate = useNavigate();
 
   const schema = {

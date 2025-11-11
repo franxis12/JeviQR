@@ -10,6 +10,7 @@ import { myImages } from "../imports/images.js";
 function Dashboard() {
   const { user } = useUser();
   const [customName, setCustomName] = useState("");
+  const { bg: BgPattern } = myImages;
   return (
     <>
       <SEO
@@ -19,7 +20,7 @@ function Dashboard() {
       />
 
       <div className="relative min-h-screen w-full overflow-hidden">
-        <myImages.bg
+        <BgPattern
           className="pointer-events-none text-(--text-color)/35  absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2"
           style={{ width: 2000, height: 1800 }}
         />
