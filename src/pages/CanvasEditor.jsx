@@ -8,13 +8,12 @@ import { useUser } from "../context/UserContext";
 import Canvas from "../components/Canvas";
 import ZebraLabel from "../components/ZebraLabel";
 import { useModeCanvas } from "../context/ModeCanvas";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function CanvasEditor() {
   const { user, isAuthReady } = useUser();
   const [customName, setCustomName] = useState("");
   const { modeCanvasActive } = useModeCanvas();
-  const location = useLocation();
   const navigate = useNavigate();
 
   const PATTERN_SIZE = 200;
