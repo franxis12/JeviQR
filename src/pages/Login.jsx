@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { signIn } from "../auth/auth";
 import SEO from "../components/SEO.jsx";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     const { data, error } = await signIn(email, password);
     console.log(data, error);
+    navigate("/");
   };
 
   return (
@@ -37,6 +40,12 @@ function Login() {
           onClick={handleLogin}
         >
           Sign in
+        </button>
+        <button
+          className="rounded bg-blue-500 px-4 py-2 text-white"
+          onClick={() => navigate("/register")}
+        >
+          Register
         </button>
       </div>
     </>

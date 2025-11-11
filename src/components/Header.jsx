@@ -1,12 +1,23 @@
-import React from "react";
 import NavButton from "../utils/NavButton";
 import { Icon } from "../imports/icons";
 import { handleDownloadQR, handleDownloadQRsvg } from "./Canvas";
 import { useZplLabel } from "../hooks/useZplLabel.js";
+import { useUser } from "../context/UserContext.jsx";
+import { useEffect } from "react";
 
 function Header() {
   const { selectedTemplate, generateZpl, customName } = useZplLabel();
   const canGenerateZpl = Boolean(selectedTemplate?.build);
+  const { user, isAuthReady } = useUser();
+
+  useEffect(() => {
+    if (!isAuthReady) return; // todavía no sabemos si hay usuario
+  }, [isAuthReady, user]);
+
+  const displayName = () => {
+    if (!isAuthReady) return;
+    return user?.user_metadata.firstName + " " + user?.user_metadata.lastName;
+  };
 
   const handlePrint = () => {
     window.print();
@@ -60,6 +71,10 @@ function Header() {
   return (
     <div className=" s w-full sticky to-0%  h-15 flex items-center justify-end ">
       <div className="flex items-center justify-end  gap-2 px-5 py-1">
+        <div>
+          <h2>{displayName()}</h2>
+        </div>
+
         <NavButton
           onClick={handleDownloadQRsvg}
           textVisibility={true}

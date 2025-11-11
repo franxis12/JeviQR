@@ -14,14 +14,7 @@ import exitIcon from '../assets/icons/right-from-bracket-solid-full.svg?react'
 import spinnerIcon from '../assets/icons/spinner-solid-full.svg?react'
 import settingIcon from '../assets/icons/gears-solid-full.svg?react'
 import downloadIcon from '../assets/icons/download-solid-full.svg?react'
-
-
-
-
-
-
-
-
+import arrowDown from '../assets/icons/caret-down-solid-full.svg?react'
 
 const Icon = {
     eyeSlash: eyeSlashSolid,
@@ -36,7 +29,8 @@ const Icon = {
     exit: exitIcon,
     spinner: spinnerIcon,
     setting: settingIcon,
-    download: downloadIcon
+    download: downloadIcon,
+    arrowDown: arrowDown
 }
 
 export {Icon, LogoPng}

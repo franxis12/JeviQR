@@ -42,7 +42,7 @@ function Landing() {
           </span>
           <button
             className="p-2 px-4 bg-amber-400 rounded-2xl hover:bg-amber-600"
-            onClick={() => navigate("/dashboard")}
+            onClick={() => navigate("/")}
           >
             Dashboard
           </button>

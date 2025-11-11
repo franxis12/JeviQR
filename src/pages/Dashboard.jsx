@@ -4,13 +4,23 @@ import Header from "../components/Header.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 import Canvas from "../components/Canvas.jsx";
 import ToolsMenu from "../components/ToolsMenu.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { myImages } from "../imports/images.js";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const { user } = useUser();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [customName, setCustomName] = useState("");
   const { bg: BgPattern } = myImages;
+
+  useEffect(() => {
+    if (location.pathname === "/" && !user) {
+      navigate("/login");
+    }
+  }, [location, navigate, user]);
+
   return (
     <>
       <SEO
