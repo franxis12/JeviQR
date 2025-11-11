@@ -12,23 +12,18 @@ function Register() {
   const navigate = useNavigate();
 
   const handleRegister = async () => {
-    if (password === passwordConfirmation) {
-      const { data, error } = await signUp(
-        email,
-        password,
-        firstName,
-        lastName
-      );
-      console.log(data, error);
-      navigate("/");
-    }
-    console.log("Password don't match");
+    if (passwordConfirmation !== password)
+      return console.log("Password don't match");
+
+    const { data, error } = await signUp(email, password, firstName, lastName);
+    console.log(data, error);
+    navigate("/");
 
     return;
   };
   return (
     <>
-      <div className="flex items-center justify-center w-screen h-screen bg-blue-500 ">
+      <div className="flex items-center justify-center w-screen h-screen bg-(--bg-color)">
         <div className="flex flex-col items-center justify-center h-100 p-2 bg-amber-400 w-100 gap-2">
           <div>Register</div>
           <div className="flex flex-col ">
