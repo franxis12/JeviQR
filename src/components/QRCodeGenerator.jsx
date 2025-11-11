@@ -17,10 +17,10 @@ function QRCodeGenerator() {
           excavate: style.excavate,
           opacity: style.qrLogoOpacity,
         }}
-        size={style.qrCodeSize} // tamaño del QR
+        size={style.qrCodeSize} // QR code size
         bgColor={style.qrBgColor}
         fgColor={style.qrCodeColor}
-        level={style.qrCodeLevel} // nivel de corrección de errores (L, M, Q, H)
+        level={style.qrCodeLevel} // Error-correction level (L, M, Q, H)
         marginSize={style.qrMarginSize}
         style={{
           borderWidth: style.border,

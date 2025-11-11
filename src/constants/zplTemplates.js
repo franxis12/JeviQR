@@ -2,12 +2,12 @@ export const zplTemplates = [
   {
     id: "canvas",
     label: "Canvas",
-    description: "Editor visual para personalizar el lienzo.",
+    description: "Visual editor to customize the canvas.",
   },
   {
     id: "cart",
     label: "Cart Number",
-    description: "Número de carrito centrado con QR inferior.",
+    description: "Centered cart number with a QR code at the bottom.",
     build: ({ qrText, customName, style }) => [
       "^XA",
       "^LL600",
@@ -32,7 +32,7 @@ export const zplTemplates = [
    {
     id: "idNumber",
     label: "Id Number",
-    description: "Número de assets warehouse",
+    description: "Warehouse asset number",
     build: ({ qrText, customName, style }) => [
       '^XA',
       '^LL600',
@@ -57,7 +57,7 @@ export const zplTemplates = [
   {
     id: "tracking",
     label: "Tracking",
-    description: "Pickup, destino y tracking con QR.",
+    description: "Pickup, destination, and tracking info with a QR code.",
     defaultValues: {
       header: "Warehouse",
       pickupLocation: "Warehouse #4 - RI",
@@ -66,7 +66,7 @@ export const zplTemplates = [
       cta: "Scan for Tracking",
     },
     fields: [
-      { key: "header", label: "Encabezado", placeholder: "Warehouse" },
+      { key: "header", label: "Header", placeholder: "Warehouse" },
       {
         key: "pickupLocation",
         label: "Pickup Location",
@@ -84,7 +84,7 @@ export const zplTemplates = [
       },
       {
         key: "cta",
-        label: "Texto final",
+        label: "Final text",
         placeholder: "Scan for Tracking",
       },
     ],

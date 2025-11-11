@@ -148,7 +148,7 @@ export default function ZebraLabel() {
       <pre className="w-full whitespace-pre-wrap text-xs text-white/80">
         {selectedTemplate?.build
           ? generateZpl()
-          : "Selecciona un template para ver la vista previa"}
+          : "Select a template to preview it"}
       </pre>
     );
   };

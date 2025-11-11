@@ -21,7 +21,7 @@ function ZplTemplateSelector({ className = "" }) {
       className={`w-50 h-7/8 rounded-xl border border-white/20 bg-white/5 p-4 ${className}`}
     >
       <p className="text-sm font-semibold text-white/80">
-        Templates disponibles
+        Available templates
       </p>
       <div className="mt-3 flex flex-col items-center justify-center gap-2">
         {zplTemplates.map((option) => (

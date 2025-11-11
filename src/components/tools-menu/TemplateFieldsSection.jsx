@@ -12,7 +12,7 @@ function TemplateFieldsSection({
   return (
     <div className="w-full border rounded-2xl p-2 border-(--borderColor) my-2">
       <div className="flex items-center justify-between">
-        <h1 className="px-2 font-medium">Datos del template</h1>
+        <h1 className="px-2 font-medium">Template data</h1>
         <span className="px-2 text-xs font-semibold uppercase text-(--borderColor)">
           {selectedTemplate.label}
         </span>

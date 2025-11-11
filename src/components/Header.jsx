@@ -14,7 +14,7 @@ function Header() {
 
   const handleDownloadZpl = () => {
     if (!canGenerateZpl) {
-      alert("Selecciona un template Zebra para descargar el ZPL.");
+      alert("Select a Zebra template to download the ZPL file.");
       return;
     }
     const zpl = generateZpl();
@@ -32,7 +32,7 @@ function Header() {
 
   const handleLocalPrintZpl = () => {
     if (!canGenerateZpl) {
-      alert("Selecciona un template Zebra para imprimir.");
+      alert("Select a Zebra template before printing.");
       return;
     }
     const zpl = generateZpl();
