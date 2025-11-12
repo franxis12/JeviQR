@@ -27,16 +27,13 @@ function CanvasEditor() {
     pointer: { x: 0, y: 0 },
     shape: { x: 0, y: 0 },
   });
-  /*useEffect(() => {
-    if (location.pathname === "/" && !user) {
-      navigate("/login");
-    }
-  }, [location, navigate, user]);*/
 
+  /*
+//This block dashboard 
   useEffect(() => {
     if (!isAuthReady) return; // todavía no sabemos si hay usuario
     if (!user) navigate("/login");
-  }, [isAuthReady, user, navigate]);
+  }, [isAuthReady, user, navigate]);*/
 
   const patternUrl = useMemo(() => {
     const svg = dottedPattern.replace(/currentColor/g, "#fff5");

@@ -154,7 +154,7 @@ export default function ZebraLabel() {
   };
 
   return (
-    <div className="flex  items-center gap-4 p-6">
+    <div className="flex  items-start gap-4 p-6">
       <ZplTemplateSelector className="max-w-2xl" />
 
       <div className="flex w-full max-w-2xl flex-col items-center justify-center rounded-xl border border-gray-300 bg-white/10 p-6 shadow-md">

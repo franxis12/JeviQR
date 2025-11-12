@@ -15,6 +15,7 @@ function Input({
   width,
   selected,
   step,
+  padding,
 }) {
   return (
     <div className={`${width ? width : "w-full"}`}>
@@ -29,9 +30,9 @@ function Input({
           type={type}
           value={value}
           placeholder={placeholder}
-          className={`bg-(--inputColor) focus:outline-3 focus:outline-(--buttonSelected)/80 transition-all duration-300 border border-(--borderColor)/50 rounded-lg px-2 py-1  ${
-            width ? width : "w-full"
-          } text-sm h-7`}
+          className={`bg-(--inputColor) focus:outline-3 focus:outline-(--buttonSelected)/80 transition-all duration-300 border border-(--borderColor)/50 rounded-lg ${
+            padding ? padding : "px-2 py-1 "
+          }  ${width ? width : "w-full"} text-sm h-7`}
           onChange={onChange}
           max={max}
           min={min}

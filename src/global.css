@@ -7,8 +7,11 @@
     --text-color: #f8fafc;
     --interfaceColor: #333;
     --buttonSelected: #ff9500;
+    --buttonSecondary: #d6d6d68d;
+
     --buttonHover: #fdbc61;
     --textPrimary: #ff9500;
+
     --pressedButton: #000;
 
     --inputColor: #1a1a1a;
@@ -25,6 +28,9 @@
     --text-color: #0f172a;
     --interfaceColor: #fff;
     --buttonSelected: #ff9500;
+    --buttonSecondary: #d6d6d655;
+
+
     --buttonHover: #ffb650;
     --textPrimary: #ff9500;
     --pressedButton: #808080;

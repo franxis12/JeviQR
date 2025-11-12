@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import CanvasEditor from "./pages/CanvasEditor";
@@ -10,14 +9,15 @@ import Register from "./pages/Register";
 
 function App() {
   async function testConnection() {
-    await supabase.from("users").select("*");
+    const conection = await supabase.from("users").select("*");
+    console.log(conection);
   }
+  testConnection();
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/landing" element={<Landing />} />
-        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<CanvasEditor />} />
