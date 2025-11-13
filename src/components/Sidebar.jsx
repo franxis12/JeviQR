@@ -46,7 +46,7 @@ function Sidebar() {
         >
           <img
             src={myImages.logo}
-            className="rounded-lg w-15"
+            className="rounded-lg w-40"
             crossOrigin="anonymous"
             alt="logo"
           />
