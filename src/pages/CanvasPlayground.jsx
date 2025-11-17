@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from "react";
 /**
  * CanvasPlayground
  *
- * Un ejemplo mínimo con un cuadrado que se puede arrastrar.
- * Sirve como playground para entender el patrón sin lógica adicional//.
+ * A minimal example with a draggable square.
+ * Serves as a playground to understand the pattern without extra logic.
  */
 function CanvasPlayground() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -55,7 +55,7 @@ function CanvasPlayground() {
     <div className="flex h-screen w-screen items-center justify-center bg-slate-900 text-slate-100">
       <div className="flex flex-col items-center gap-4">
         <p className="text-sm">
-          Arrastra el cuadrado. Observa cómo se actualiza el estado básico.
+          Drag the square and watch how the basic state updates.
         </p>
         <div
           className={`relative h-48 w-48 rounded-xl border border-slate-500 bg-slate-800 ${

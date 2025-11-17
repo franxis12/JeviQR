@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import useIsMobile from "../hooks/useIsMobile";
 import { myImages } from "../imports/images";
-import Button from "../utils/Button";
 import { Icon } from "../imports/icons";
 import NavButton from "../utils/NavButton";
-import { useNavigate } from "react-router-dom";
 import { usePage } from "../context/PageContext";
+import { signOut } from "../auth/auth";
+import { useNavigate } from "react-router-dom";
 
-function Sidebar({ user }) {
+function Sidebar() {
   const isMobile = useIsMobile();
   const isTable = useIsMobile(1024);
   const [expanded, setExpanded] = useState(isMobile);
-  const { currentPage, setCurrentPage, tap, setTap } = usePage();
+  const { tap, setTap } = usePage();
   const navigate = useNavigate();
+  //
+  const handleLogout = () => {
+    signOut();
+    navigate("/login");
+  };
 
   useEffect(() => {
     if (isTable || isMobile) {
@@ -22,7 +27,7 @@ function Sidebar({ user }) {
 
   return (
     <div
-      className={`bg-(--interfaceColor) z-10 h-screen p-2 border-r border-slate-50/30 fixed flex flex-col justify-between  ${
+      className={`gap-2 bg-(--interfaceColor) z-10 h-screen p-2 border-r border-slate-50/30 fixed flex flex-col justify-between  ${
         isMobile && expanded
           ? "w-50 -translate-x-1.5"
           : !isMobile
@@ -34,16 +39,29 @@ function Sidebar({ user }) {
     >
       <div>
         <button
-          onClick={() => setExpanded(!expanded)}
+          onClick={() => navigate("/landing")}
           className={` p-1 px-2 rounded-xl transition-all duration-400 w-120 ${
             isMobile && !expanded ? "absolute translate-x-55 " : "relative"
           } `}
         >
           <img
             src={myImages.logo}
-            className="rounded-lg w-15"
+            className="rounded-lg w-40"
             crossOrigin="anonymous"
             alt="logo"
+          />
+        </button>
+      </div>
+      <div className="w-full flex items-center justify-end">
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className={` p-1 px-1 rounded-l-xl transition-all duration-400 w-10 border-l border-amber-50/50 translate-x-3 bg-(--bg-color)`}
+        >
+          {" "}
+          <Icon.arrowDown
+            className={`transition-all duration-600 ease-in-out w-10 h-10 ${
+              expanded ? "rotate-90" : "rotate-270"
+            }`}
           />
         </button>
       </div>
@@ -80,7 +98,7 @@ function Sidebar({ user }) {
         <NavButton
           textVisibility={expanded}
           icon={Icon.exit}
-          onClick={() => setTap("")}
+          onClick={() => handleLogout()}
           translate
         >
           Logout

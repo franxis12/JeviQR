@@ -8,11 +8,13 @@ import { useUser } from "../context/UserContext";
 import Canvas from "../components/Canvas";
 import ZebraLabel from "../components/ZebraLabel";
 import { useModeCanvas } from "../context/ModeCanvas";
+import { useNavigate } from "react-router-dom";
 
 function CanvasEditor() {
-  const { user } = useUser();
+  const { user, isAuthReady } = useUser();
   const [customName, setCustomName] = useState("");
-  const { modeCanvasActive, setModeCanvasActive } = useModeCanvas();
+  const { modeCanvasActive } = useModeCanvas();
+  const navigate = useNavigate();
 
   const PATTERN_SIZE = 200;
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -25,6 +27,13 @@ function CanvasEditor() {
     pointer: { x: 0, y: 0 },
     shape: { x: 0, y: 0 },
   });
+
+  /*
+//This block dashboard 
+  useEffect(() => {
+    if (!isAuthReady) return; // todavía no sabemos si hay usuario
+    if (!user) navigate("/login");
+  }, [isAuthReady, user, navigate]);*/
 
   const patternUrl = useMemo(() => {
     const svg = dottedPattern.replace(/currentColor/g, "#fff5");
@@ -138,7 +147,7 @@ function CanvasEditor() {
             }}
             onPointerDown={handleShapePointerDown}
           >
-            {modeCanvasActive === "canvas" && (
+            {modeCanvasActive === "canvasii" && (
               <Canvas customName={customName} />
             )}
           </div>

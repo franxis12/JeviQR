@@ -1,18 +1,15 @@
 import QRCodeGenerator from "./QRCodeGenerator";
 import { useQRCode } from "../context/QRCodeContext";
-import { useState } from "react";
 
-function Canvas() {
-  const { qrText, customName, style } = useQRCode();
-
-  //temp variable
-  const [rotation, setRotation] = useState(0);
+function Canvas({ canvasId = "qr-sheet" }) {
+  const { qrText, customName } = useQRCode();
+  const rotation = 0;
 
   return (
     <div className="flex flex-col items-center gap-10  border border-amber-300">
       <div className="flex w-full  justify-center  h-2/5 ">
         <div
-          id="qr-sheet"
+          id={canvasId}
           className="transition-all duration-200 w-full  flex scale-[0.55] origin-top flex-col items-center justify-center mt-30 gap-4 rounded-2xl    sm:scale-[0.65] md:scale-[0.75] lg:scale-[0.85] xl:scale-100 "
         >
           <div className="flex flex-col items-center justify-center w-full ">

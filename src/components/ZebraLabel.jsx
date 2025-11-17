@@ -1,217 +1,165 @@
-import React, { useEffect, useState } from "react";
-import { useQRCode } from "../context/QRCodeContext.jsx";
+import React from "react";
 import QRCodeGenerator from "./QRCodeGenerator.jsx";
-import { useModeCanvas } from "../context/ModeCanvas.jsx";
-import Button from "../utils/Button.jsx";
+import ZplTemplateSelector from "./ZplTemplateSelector.jsx";
+import Canvas from "./Canvas.jsx";
+import { useZplLabel } from "../hooks/useZplLabel.js";
 
 export default function ZebraLabel() {
-  const [loading, setLoading] = useState(false);
-  const [preview, setPreview] = useState(false);
-  const { qrText, customName, style } = useQRCode();
-  const { modeCanvasActive, setModeCanvasActive } = useModeCanvas();
-  const [hidden, setHidden] = useState(false);
+  const {
+    selectedTemplate,
+    selectedTemplateValues,
+    generateZpl,
+    customName,
+    qrText,
+  } = useZplLabel();
 
-  // 🔹 Genera el código ZPL dinámico
-  const generateZpl = ({
-    title = customName.name,
-    qrData = qrText.name,
-  } = {}) => {
-    return [
-      "^XA",
-      "^LL600", // alto total (≈ 3 pulgadas)
-
-      // Texto superior (centrado)
-      "^FO110,50",
-      `^A0N,60,100`,
-      "^FB600,1,0,C,0", // centrado en ancho 400
-      `^FDCart Number^FS`,
-
-      // Texto superior (centrado)
-      "^FO50,150",
-      `^A0N,400,300`,
-      "^FB750,1,0,C,0", // centrado en ancho 400
-      `^FD${title || "Name not Found"}^FS`,
-
-      // Borde alrededor del QR
-      "^FO50,130",
-      "^GB700,350,10,B,2^FS", // ancho=480, alto=480, línea=8, redondeado=16
-
-      // Borde alrededor del QR
-      "^FO50,490",
-      "^GB700,750,10,B,1^FS", // ancho=480, alto=480, línea=8, redondeado=16
-
-      // QR centrado dentro del borde
-      "^FO85,513",
-      "^BQN,2,30",
-      `^FD${style.qrCodeLevel || "Q"}A,${qrData}^FS`,
-
-      "^XZ",
-    ].join("\n");
-  };
-
-  // 🔹 Imprimir desde Supabase (red corporativa//)
-  const handlePrint = async () => {
-    setLoading(true);
-    const zpl = generateZpl({
-      title: customName.name || "NO NAME FOUND",
-      qrData: qrText.name || "ASSET-00123",
-    });
-
-    try {
-      const res = await fetch(
-        "https://ojfpmbkzfxjvxohevvoi.functions.supabase.co/print-label",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ zpl }),
-        }
+  const renderPreviewContent = () => {
+    if (selectedTemplate?.id === "canvas") {
+      return (
+        <div className="w-full rounded-xl border border-amber-200/40 bg-white/10 p-4">
+          <Canvas canvasId="qr-sheet" />
+        </div>
       );
-
-      if (!res.ok) throw new Error("Error al enviar a la impresora");
-      const data = await res.json();
-
-      if (data.success) {
-        alert("✅ Etiqueta enviada correctamente a la Zebra!");
-      } else {
-        alert("⚠️ Respuesta inesperada: " + JSON.stringify(data));
-      }
-    } catch (error) {
-      console.error(error);
-      alert("❌ No se pudo imprimir. Ver consola para más detalles.");
-    } finally {
-      setLoading(false);
     }
-  };
 
-  // 🔹 Descargar archivo .txt
-  const handleDownload = () => {
-    const zpl = generateZpl({
-      title: customName.name || "Mi Etiqueta",
-      qrData: qrText.name || "https://francismartinez.com",
-    });
-
-    const blob = new Blob([zpl], { type: "text/plain;charset=us-ascii" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${customName.name || "label"}.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
-  // 🔹 Imprimir localmente (sin Supabase)
-  const handleLocalPrint = () => {
-    const zpl = generateZpl({
-      title: customName.name || "Dealer Tire - Asset",
-      qrData: qrText.name || "ASSET-00123",
-    });
-
-    const blob = new Blob([zpl], { type: "text/plain;charset=us-ascii" });
-    const url = URL.createObjectURL(blob);
-
-    // Crear un iframe temporal que use el diálogo de impresión del sistema
-    const iframe = document.createElement("iframe");
-    iframe.style.display = "none";
-    iframe.src = url;
-    document.body.appendChild(iframe);
-
-    iframe.onload = () => {
-      iframe.contentWindow?.focus();
-      iframe.contentWindow?.print(); // abre la ventana de impresión
-    };
-
-    // Limpieza del DOM después de imprimir
-    setTimeout(() => {
-      document.body.removeChild(iframe);
-      URL.revokeObjectURL(url);
-    }, 1000);
-  };
-
-  // 🔹 Vista previa
-  const handlePreview = () => {
-    if (modeCanvasActive === "canvas") {
-      setModeCanvasActive("zebra");
-    } else if (modeCanvasActive === "zebra") {
-      setModeCanvasActive("canvas");
-    }
-    setPreview(!preview);
-  };
-
-  return (
-    <div className="flex flex-col items-center gap-4 p-6">
-      {/* Descargar .txt */}
-      {hidden && (
-        <Button
-          width={"w-60"}
-          onClick={handleDownload}
-          className="px-6 py-2 rounded-md text-white bg-green-600 hover:bg-green-700 transition"
+    if (selectedTemplate?.id === "idNumber") {
+      return (
+        <div
+          className="relative flex text-red flex-col items-center j rounded-xl border border-gray-800 bg-white"
+          style={{
+            width: "470px",
+            height: "300px",
+            padding: "10px",
+          }}
         >
-          Descargar .txt (ZPL)
-        </Button>
-      )}
-
-      {/* Imprimir desde Supabase */}
-      {hidden && (
-        <Button
-          selected={true}
-          width={"w-60"}
-          onClick={handlePrint}
-          disabled={loading}
-          className={`px-6 py-2 rounded-md text-white transition ${
-            loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
-          }`}
-        >
-          {loading ? "Printing..." : "Print via Supabase"}
-        </Button>
-      )}
-
-      {/* ✅ Nuevo botón para imprimir localmente */}
-      <Button
-        width={"w-60"}
-        onClick={handleLocalPrint}
-        className="px-6 py-2 rounded-md text-white bg-orange-600 hover:bg-orange-700 transition"
-      >
-        Print Zebra
-      </Button>
-
-      {/* Vista previa */}
-      <Button
-        width={"w-60"}
-        onClick={handlePreview}
-        className="px-6 py-2 rounded-md text-white bg-purple-600 hover:bg-purple-700 transition"
-      >
-        {preview ? "Ocultar vista previa" : "Ver vista previa"}
-      </Button>
-
-      {preview && (
-        <div className="mt-6 border border-gray-300 bg-white/70 shadow-md rounded-xl p-6 flex flex-col items-center justify-center">
+          <div className="flex w-full items-center justify-center rounded-xl border-4 border-black bg-white">
+            <h4
+              className={`mt-2 mb-4 text-[75px] font-bold tracking-wide scale-y-190 scale-x-210 ${
+                customName.name ? "text-black" : "text-slate-300/80"
+              }`}
+            >
+              {customName.name || "1234"}
+            </h4>
+          </div>
           <div
-            className="relative flex flex-col items-center justify-center bg-white rounded-xl border-4 border-gray-800"
+            className="mt-1 flex w-full items-center justify-start rounded-xl border-4 border-black bg-white"
             style={{
-              width: "250px",
-              height: "350px",
-              padding: "10px",
+              height: "400px",
+              overflow: "hidden",
             }}
           >
-            {/* CUSTOM NAME */}
-            <h4 className="font-bold text-lg text-gray-700 mb-4 tracking-wide">
-              {customName.name || "CUSTOM NAME"}
-            </h4>
+            <QRCodeGenerator />
+          </div>
+        </div>
+      );
+    }
 
-            {/* QR con borde redondeado */}
+    if (selectedTemplate?.id === "cart") {
+      return (
+        <div
+          className="relative flex text-black flex-col items-center justify-between rounded-xl border border-gray-800 bg-white"
+          style={{
+            width: "300px",
+            height: "470px",
+            padding: "10px",
+          }}
+        >
+          <div className="flex w-full items-center justify-center">
+            <h2 className="text-2xl font-bold">{customName.title}</h2>
+          </div>
+          <div className="flex w-full items-center justify-center rounded-xl border-4 border-black bg-white">
+            <h4
+              className={`mt-2 mb-4 text-[75px] font-bold tracking-wide scale-y-190 ${
+                customName.name ? "text-black" : "text-slate-300/80"
+              }`}
+            >
+              {customName.name || "1234"}
+            </h4>
+          </div>
+          <div
+            className="mt-1 flex w-full items-center justify-center rounded-xl border-4 border-black bg-white"
+            style={{
+              height: "370px",
+              overflow: "hidden",
+            }}
+          >
+            <QRCodeGenerator />
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedTemplate?.id === "tracking") {
+      const values = {
+        ...(selectedTemplate?.defaultValues || {}),
+        ...selectedTemplateValues,
+      };
+      const trackingUrl =
+        qrText?.name || "https://track.example.com/TRK123456789";
+
+      return (
+        <div className="w-[320px] space-y-3 rounded-xl border border-gray-400 bg-white p-5 text-gray-900">
+          <p className="text-xl font-semibold">
+            {values.header || "Warehouse"}
+          </p>
+          <div>
+            <p className="text-[11px] uppercase tracking-widest text-gray-500">
+              Pickup Location
+            </p>
+            <p className="text-base font-medium">
+              {values.pickupLocation || "Warehouse #4 - RI"}
+            </p>
+          </div>
+          <div>
+            <p className="text-[11px] uppercase tracking-widest text-gray-500">
+              Destination
+            </p>
+            <p className="text-base font-medium">
+              {values.destination || "John Doe, Miami FL"}
+            </p>
+          </div>
+          <div className="border-t border-dashed border-gray-300 pt-3">
+            <p className="text-sm font-semibold">
+              Tracking: {values.trackingNumber || "TRK123456789"}
+            </p>
+          </div>
+          <div className="flex flex-col items-center gap-2 rounded-lg border border-gray-300 bg-gray-50 p-3">
             <div
-              className="flex items-center justify-center bg-white rounded-xl border-4 border-black"
+              className="transform rounded-md border border-gray-900 bg-white p-1"
               style={{
-                width: "220px",
-                height: "220px",
-                overflow: "hidden",
+                transform: "scale(0.75)",
+                transformOrigin: "top center",
               }}
             >
               <QRCodeGenerator />
             </div>
+            <p className="break-all text-center text-xs text-gray-600">
+              {trackingUrl}
+            </p>
+            <p className="text-[11px] uppercase tracking-widest text-gray-500">
+              {values.cta || "Scan for Tracking"}
+            </p>
           </div>
         </div>
-      )}
+      );
+    }
+
+    return (
+      <pre className="w-full whitespace-pre-wrap text-xs text-white/80">
+        {selectedTemplate?.build
+          ? generateZpl()
+          : "Select a template to preview it"}
+      </pre>
+    );
+  };
+
+  return (
+    <div className="flex  items-start gap-4 p-6">
+      <ZplTemplateSelector className="max-w-2xl" />
+
+      <div className="flex w-full max-w-2xl flex-col items-center justify-center rounded-xl border border-gray-300 bg-white/10 p-6 shadow-md">
+        {renderPreviewContent()}
+      </div>
     </div>
   );
 }

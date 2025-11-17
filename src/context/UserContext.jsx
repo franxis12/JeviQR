@@ -5,18 +5,21 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isAuthReady, setIsAuthReady] = useState(false);
 
   // Listen for session changes (login, logout, refresh)
   useEffect(() => {
     const { data: listener } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setUser(session?.user || null);
+        setIsAuthReady(true);
       }
     );
 
     // Fetch the current session on mount
     supabase.auth.getSession().then(({ data }) => {
       setUser(data.session?.user || null);
+      setIsAuthReady(true);
     });
 
     return () => {
@@ -25,7 +28,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, isAuthReady }}>
       {children}
     </UserContext.Provider>
   );
