@@ -3,7 +3,7 @@ import DottedBG from '../assets/background/dotted-bg.svg';
 import authImage3 from '../assets/background/authImage3.png'
 import authImage4 from '../assets/background/authImage4.png'
 import landingImage from '../assets/background/landingImage1.png'
-import logoPng from '../assets/background/logo.png'
+import logoPng from '../assets/background/Logo.png'
 
 
 const myImages = {
