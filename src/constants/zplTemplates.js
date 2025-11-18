@@ -1,9 +1,5 @@
 export const zplTemplates = [
-  {
-    id: "canvas",
-    label: "Canvas",
-    description: "Visual editor to customize the canvas.",
-  },
+  
   {
     id: "cart",
     label: "Cart Number",
@@ -28,6 +24,11 @@ export const zplTemplates = [
       `^FD${style.qrCodeLevel || "Q"}A,${qrText.name || ""}^FS`,
       "^XZ",
     ].join("\n"),
+  },
+  {
+    id: "canvas",
+    label: "Canvas",
+    description: "Visual editor to customize the canvas.",
   },
    {
     id: "idNumber",

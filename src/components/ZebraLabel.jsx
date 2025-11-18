@@ -14,14 +14,6 @@ export default function ZebraLabel() {
   } = useZplLabel();
 
   const renderPreviewContent = () => {
-    if (selectedTemplate?.id === "canvas") {
-      return (
-        <div className="w-full rounded-xl border border-amber-200/40 bg-white/10 p-4">
-          <Canvas canvasId="qr-sheet" />
-        </div>
-      );
-    }
-
     if (selectedTemplate?.id === "idNumber") {
       return (
         <div
@@ -50,6 +42,13 @@ export default function ZebraLabel() {
           >
             <QRCodeGenerator />
           </div>
+        </div>
+      );
+    }
+    if (selectedTemplate?.id === "canvas") {
+      return (
+        <div className="w-full rounded-xl border border-amber-200/40 bg-white/10 p-4">
+          <Canvas canvasId="qr-sheet" />
         </div>
       );
     }
