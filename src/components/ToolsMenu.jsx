@@ -107,7 +107,7 @@ function ToolsMenu() {
   const shouldShowQrText = isCanvasTemplate || isCartTemplate;
 
   return (
-    <div className="overflow-x-hidden overflow-y-scroll no-scrollbar   rounded-2xl w-80 h-7/8 border transition-all duration-500 border-amber-50/20 bg-(--interfaceColor)/75 hover:bg-(--interfaceColor)  z-100  absolute  p-2 right-3  top-20 ">
+    <div className="overflow-x-hidden overflow-y-scroll no-scrollbar   rounded-2xl w-80 max-h-7/8 border transition-all duration-500 border-amber-50/20 bg-(--interfaceColor)/75 hover:bg-(--interfaceColor)  z-100  absolute  p-2 right-3  top-20 ">
       {" "}
       {/*overflow-x-hidden overflow-y-scroll*/}
       {/*Custom Text*/}

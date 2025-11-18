@@ -5,7 +5,7 @@ const QRCodeContext = createContext();
 
 export function QRCodeProvider({ children }) {
   const [qrText, setQrText] = useState({
-    name: "https://www.jeviqr.com",
+    name: "",
     qrTextSize: 20,
     fontWeight: 900,
     textDecoration: "",
@@ -13,7 +13,7 @@ export function QRCodeProvider({ children }) {
     fontColor: "#555555",
   });
   const [customName, setCustomName] = useState({
-    name: "JeviQR.com",
+    name: "",
     title: "Cart Number",
     customNameSize: 50,
     fontWeight: 700,

@@ -4,6 +4,7 @@ import { handleDownloadQR, handleDownloadQRsvg } from "./Canvas";
 import { useZplLabel } from "../hooks/useZplLabel.js";
 import { useUser } from "../context/UserContext.jsx";
 import { useEffect, useState } from "react";
+import { useModeCanvas } from "../context/ModeCanvas.jsx";
 
 function Header() {
   const { selectedTemplate, generateZpl, customName } = useZplLabel();
@@ -14,6 +15,7 @@ function Header() {
     lastName: "",
     email: "",
   });
+  const { modeCanvasActive } = useModeCanvas();
 
   useEffect(() => {
     if (!isAuthReady) return;
@@ -79,23 +81,27 @@ function Header() {
         <div>
           <h2>Welcome, {userData.firstName || "Guest"}</h2>
         </div>
+        {modeCanvasActive === "canvas" && (
+          <>
+            <NavButton
+              onClick={handleDownloadQRsvg}
+              textVisibility={true}
+              icon={Icon.download}
+              tap={true}
+            >
+              Download SVG
+            </NavButton>
 
-        <NavButton
-          onClick={handleDownloadQRsvg}
-          textVisibility={true}
-          icon={Icon.download}
-          tap={true}
-        >
-          Download SVG
-        </NavButton>
-        <NavButton
-          onClick={handleDownloadQR}
-          textVisibility={true}
-          icon={Icon.download}
-          tap={true}
-        >
-          Download PNG
-        </NavButton>
+            <NavButton
+              onClick={handleDownloadQR}
+              textVisibility={true}
+              icon={Icon.download}
+              tap={true}
+            >
+              Download PNG
+            </NavButton>
+          </>
+        )}
         <NavButton
           onClick={handleDownloadZpl}
           textVisibility={true}

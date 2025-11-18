@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 const ModeCanvas = createContext();
 
 export function ModeCanvasContextProvider({ children }) {
-  const [modeCanvasActive, setModeCanvasActive] = useState("canvas");
+  const [modeCanvasActive, setModeCanvasActive] = useState("zebra");
   //
   return (
     <ModeCanvas.Provider value={{ modeCanvasActive, setModeCanvasActive }}>

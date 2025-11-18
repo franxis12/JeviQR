@@ -14,7 +14,7 @@ function CanvasEditor() {
   const { user, isAuthReady } = useUser();
   const [customName, setCustomName] = useState("");
   const { modeCanvasActive } = useModeCanvas();
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const PATTERN_SIZE = 200;
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -147,7 +147,7 @@ function CanvasEditor() {
             }}
             onPointerDown={handleShapePointerDown}
           >
-            {modeCanvasActive === "canvasii" && (
+            {modeCanvasActive === "canvasss" && (
               <Canvas customName={customName} />
             )}
           </div>
